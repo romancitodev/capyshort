@@ -13,6 +13,8 @@ export const RegisterSchema = z
 	.object({
 		username: z.string().min(1, {
 			message: 'Username is required!',
+		}).transform(user => {
+			return user.toLowerCase()
 		}),
 		email: z.string().email({
 			message: 'Email is required!',
