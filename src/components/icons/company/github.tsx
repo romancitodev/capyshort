@@ -8,7 +8,7 @@ export function Github() {
 			xmlns='http://www.w3.org/2000/svg'
 		>
 			<title>Github logo</title>
-			<g clip-path='url(#clip0_108_373)'>
+			<g clipPath='url(#clip0_108_373)'>
 				<path
 					fillRule='evenodd'
 					clipRule='evenodd'

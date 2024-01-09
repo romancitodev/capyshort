@@ -11,12 +11,14 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 
-import React from 'react';
+import React, { useState, useTransition } from 'react';
 import Card from '@/components/auth/card';
 import Input from '@/components/auth/card/input';
 import { LoginSchema, type LoginType } from '@/schemas';
 import { CardButton } from './card/button';
 import { Login } from '@/components/icons/log-in';
+import { login } from '@/actions/login';
+import { Message, type MessageType } from '@/components/messages';
 
 export function LoginForm() {
 	const form = useForm<LoginType>({
@@ -26,6 +28,22 @@ export function LoginForm() {
 			password: '',
 		},
 	});
+
+	const [message, setMessage] = useState<{
+		type: MessageType;
+		content: string;
+	}>();
+	const [isPending, startTransition] = useTransition();
+
+	const onSubmit = (data: LoginType) => {
+		startTransition(() => {
+			setMessage(undefined);
+			login(data).then(data => {
+				if (!data) return;
+				setMessage(data);
+			});
+		});
+	};
 
 	return (
 		<Card
@@ -39,9 +57,7 @@ export function LoginForm() {
 			<Form {...form}>
 				<form
 					className='grid gap-y-6 w-full'
-					onSubmit={form.handleSubmit(data => {
-						console.log(data);
-					})}
+					onSubmit={form.handleSubmit(onSubmit)}
 				>
 					<FormField
 						control={form.control}
@@ -50,7 +66,12 @@ export function LoginForm() {
 							return (
 								<FormItem>
 									<FormControl>
-										<Input {...field} hint='Username' placeholder='Romandev' />
+										<Input
+											{...field}
+											disabled={isPending}
+											hint='Username'
+											placeholder='Romandev'
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -66,6 +87,7 @@ export function LoginForm() {
 									<FormControl>
 										<Input
 											{...field}
+											disabled={isPending}
 											hint='Password'
 											placeholder='********'
 											type='password'
@@ -76,9 +98,11 @@ export function LoginForm() {
 							);
 						}}
 					/>
+					{message && <Message {...message} />}
 					<CardButton
-						className='text-violet-50 bg-violet-500 hover:bg-violet-600 flex gap-x-2'
+						className='text-violet-50 bg-violet-500 hover:bg-violet-600 disabled:bg-[#654D9D] disabled:text-violet-200 flex gap-x-2'
 						type='submit'
+						disabled={isPending}
 					>
 						<Login />
 						Log in

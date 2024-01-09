@@ -4,7 +4,7 @@ import { Success } from '@/components/icons/success';
 import { Wrong } from '@/components/icons/wrong';
 import { Info } from '@/components/icons/info';
 
-type MessageType = 'warn' | 'success' | 'error' | 'info';
+export type MessageType = 'warn' | 'success' | 'error' | 'info';
 
 type MessageProps = {
 	type: MessageType;

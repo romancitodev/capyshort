@@ -11,14 +11,15 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import Card from '@/components/auth/card';
 import Input from '@/components/auth/card/input';
 import { RegisterSchema, type RegisterType } from '@/schemas';
 import { CardButton } from './card/button';
 import { Login } from '@/components/icons/log-in';
-import { Eye } from '../icons/eye';
-import { Message } from '../messages';
+import { Eye } from '@/components/icons/eye';
+import { Message, MessageType } from '@/components/messages';
+import { register } from '@/actions/register';
 
 export function RegisterForm() {
 	const form = useForm<RegisterType>({
@@ -29,8 +30,25 @@ export function RegisterForm() {
 		},
 	});
 
+	const [message, setMessage] = useState<{
+		type: MessageType;
+		content: string;
+	}>();
+
 	const [viewPassword, setView] = useState(false);
 	const [viewCheck, setViewCheck] = useState(false);
+
+	const [isPending, startTransition] = useTransition();
+
+	const onSubmit = (data: RegisterType) => {
+		startTransition(() => {
+			register(data).then(data => {
+				console.log(data);
+				if (!data) return;
+				setMessage(data);
+			});
+		});
+	};
 
 	return (
 		<Card
@@ -44,12 +62,7 @@ export function RegisterForm() {
 			<Form {...form}>
 				<form
 					className='grid gap-y-6 w-full'
-					onSubmit={form.handleSubmit(
-						data => {
-							console.log(data);
-						},
-						errors => console.log(errors),
-					)}
+					onSubmit={form.handleSubmit(onSubmit)}
 				>
 					<FormField
 						control={form.control}
@@ -58,7 +71,12 @@ export function RegisterForm() {
 							return (
 								<FormItem>
 									<FormControl>
-										<Input {...field} hint='Username' placeholder='Romandev' />
+										<Input
+											{...field}
+											disabled={isPending}
+											hint='Username'
+											placeholder='Romandev'
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -72,7 +90,12 @@ export function RegisterForm() {
 							return (
 								<FormItem>
 									<FormControl>
-										<Input {...field} hint='Email' placeholder='roman@dev.com' />
+										<Input
+											{...field}
+											disabled={isPending}
+											hint='Email'
+											placeholder='roman@dev.com'
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -92,6 +115,7 @@ export function RegisterForm() {
 												hint='Password'
 												placeholder='********'
 												type={viewPassword ? 'text' : 'password'}
+												disabled={isPending}
 												className='h-[50px] transition-all w-[450px]'
 											/>
 											<CardButton
@@ -121,6 +145,7 @@ export function RegisterForm() {
 												hint='Repeat your password'
 												placeholder='********'
 												type={viewCheck ? 'text' : 'password'}
+												disabled={isPending}
 												className='h-[50px] transition-all w-[450px]'
 											/>
 											<CardButton
@@ -137,9 +162,11 @@ export function RegisterForm() {
 							);
 						}}
 					/>
+					{message && <Message {...message} />}
 					<CardButton
 						className='text-violet-50 bg-violet-500 hover:bg-violet-600 flex gap-x-2'
 						type='submit'
+						disabled={isPending}
 					>
 						<Login />
 						Create an account
