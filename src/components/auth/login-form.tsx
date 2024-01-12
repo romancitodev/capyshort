@@ -2,6 +2,9 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ring } from 'ldrs';
+
+ring.register();
 
 import {
 	Form,
@@ -16,7 +19,7 @@ import Card from '@/components/auth/card';
 import Input from '@/components/auth/card/input';
 import { LoginSchema, type LoginType } from '@/schemas';
 import { CardButton } from './card/button';
-import { Login } from '@/components/icons/log-in';
+import { LogIn } from 'lucide-react';
 import { login } from '@/actions/login';
 import { Message, type MessageType } from '@/components/messages';
 
@@ -104,7 +107,11 @@ export function LoginForm() {
 						type='submit'
 						disabled={isPending}
 					>
-						<Login />
+						{isPending ? (
+							<l-ring size='20' stroke='2' color='#F3F1FF' />
+						) : (
+							<LogIn size='20' />
+						)}
 						Log in
 					</CardButton>
 				</form>

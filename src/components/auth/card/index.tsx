@@ -6,14 +6,15 @@ import {
 	CardHeader,
 } from '@/components/ui/card';
 
-import { Header } from '@/components/auth/card/header';
-import { Capybara } from '@/components/icons/capybara';
-import { CardButton } from '@/components/auth/card/button';
-import { Separator } from '@/components/auth/card/separator';
-import { Login } from '@/components/icons/log-in';
+import { DEFAULT_LOGIN_REDIRECT } from '@/app/routes';
 import { BackButton } from '@/components/auth/card/back-button';
-import { Google } from '@/components/icons/company/google';
+import { CardButton } from '@/components/auth/card/button';
+import { Header } from '@/components/auth/card/header';
+import { Separator } from '@/components/auth/card/separator';
+import { Capybara } from '@/components/icons/capybara';
 import { Github } from '@/components/icons/company/github';
+import { Google } from '@/components/icons/company/google';
+import { signIn } from 'next-auth/react';
 
 type CardProps = {
 	children: React.ReactNode;
@@ -22,6 +23,12 @@ type CardProps = {
 };
 
 export default function AuthCard({ children, back, href }: CardProps) {
+	const onClick = (provider: 'github' | 'google') => {
+		signIn(provider, {
+			callbackUrl: DEFAULT_LOGIN_REDIRECT,
+		});
+	};
+
 	return (
 		<Card className='w-[600px] shadow-md bg-violet-50'>
 			<CardHeader>
@@ -35,10 +42,16 @@ export default function AuthCard({ children, back, href }: CardProps) {
 			<CardFooter className='grid w-full gap-5'>
 				<Separator />
 				<div className='grid w-full grid-flow-col gap-x-5'>
-					<CardButton className='bg-violet-50 ring-1 ring-violet-500 hover:ring-violet-600 hover:bg-violet-100'>
+					<CardButton
+						className='bg-violet-50 ring-1 ring-violet-500 hover:ring-violet-600 hover:bg-violet-100'
+						onClick={() => onClick('google')}
+					>
 						<Google />
 					</CardButton>
-					<CardButton className='bg-violet-50 ring-1 ring-violet-500 hover:ring-violet-600 hover:bg-violet-100'>
+					<CardButton
+						className='bg-violet-50 ring-1 ring-violet-500 hover:ring-violet-600 hover:bg-violet-100'
+						onClick={() => onClick('github')}
+					>
 						<Github />
 					</CardButton>
 				</div>

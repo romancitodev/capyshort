@@ -15,18 +15,19 @@ import React, { useState, useTransition } from 'react';
 import Card from '@/components/auth/card';
 import Input from '@/components/auth/card/input';
 import { RegisterSchema, type RegisterType } from '@/schemas';
-import { CardButton } from './card/button';
-import { Login } from '@/components/icons/log-in';
-import { Eye } from '@/components/icons/eye';
+import { CardButton } from '@/components/auth/card/button';
 import { Message, MessageType } from '@/components/messages';
 import { register } from '@/actions/register';
+import { LogIn, Eye, EyeOff } from 'lucide-react';
 
 export function RegisterForm() {
 	const form = useForm<RegisterType>({
 		resolver: zodResolver(RegisterSchema),
 		defaultValues: {
 			username: '',
+			email: '',
 			password: '',
+			check_password: '',
 		},
 	});
 
@@ -55,7 +56,7 @@ export function RegisterForm() {
 			href='/login'
 			back={
 				<p>
-					Don't have an account? <span className='font-bold'>Register here</span>
+					Have an account already? <span className='font-bold'>Login here</span>
 				</p>
 			}
 		>
@@ -116,14 +117,14 @@ export function RegisterForm() {
 												placeholder='********'
 												type={viewPassword ? 'text' : 'password'}
 												disabled={isPending}
-												className='h-[50px] transition-all w-[450px]'
+												className='h-[50px] transition-all w-[450px] rounded-xl'
 											/>
 											<CardButton
 												type='button'
 												className='bg-violet-50 text-violet-500 w-[75px] hover:bg-violet-100'
 												onClick={() => setView(state => !state)}
 											>
-												<Eye variant={viewPassword ? 'open' : 'closed'} />
+												{viewPassword ? <Eye /> : <EyeOff />}
 											</CardButton>
 										</div>
 									</FormControl>
@@ -146,14 +147,14 @@ export function RegisterForm() {
 												placeholder='********'
 												type={viewCheck ? 'text' : 'password'}
 												disabled={isPending}
-												className='h-[50px] transition-all w-[450px]'
+												className='h-[50px] transition-all w-[450px]  rounded-xl'
 											/>
 											<CardButton
 												type='button'
 												className='bg-violet-50 text-violet-500 w-[75px] hover:bg-violet-100'
 												onClick={() => setViewCheck(state => !state)}
 											>
-												<Eye variant={viewCheck ? 'open' : 'closed'} />
+												{viewPassword ? <Eye /> : <EyeOff />}
 											</CardButton>
 										</div>
 									</FormControl>
@@ -168,7 +169,7 @@ export function RegisterForm() {
 						type='submit'
 						disabled={isPending}
 					>
-						<Login />
+						<LogIn size='20' />
 						Create an account
 					</CardButton>
 				</form>

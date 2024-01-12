@@ -1,8 +1,10 @@
 import { cn } from '@/lib/utils';
-import { Warn } from '@/components/icons/warn';
-import { Success } from '@/components/icons/success';
-import { Wrong } from '@/components/icons/wrong';
-import { Info } from '@/components/icons/info';
+import {
+	AlertTriangle as Warn,
+	Check as Success,
+	X as Wrong,
+	Info,
+} from 'lucide-react';
 
 export type MessageType = 'warn' | 'success' | 'error' | 'info';
 
@@ -24,10 +26,10 @@ export function Message(
 				type === 'info' && 'bg-violet-200/75 text-violet-600 ',
 			)}
 		>
-			{type === 'error' && <Wrong />}
-			{type === 'warn' && <Warn />}
-			{type === 'success' && <Success />}
-			{type === 'info' && <Info />}
+			{type === 'error' && <Wrong size='20' />}
+			{type === 'warn' && <Warn size='20' />}
+			{type === 'success' && <Success size='20' />}
+			{type === 'info' && <Info size='20' />}
 			{content}
 		</div>
 	);

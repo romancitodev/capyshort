@@ -1,35 +1,59 @@
 'use server';
 
-import { MessageType } from "@/components/messages";
-import { db } from "@/lib/db";
-import { RegisterSchema, type RegisterType } from "@/schemas";
-import bcrypt from 'bcrypt';
+import { MessageType } from '@/components/messages';
+import { db } from '@/lib/db';
+import { RegisterSchema, type RegisterType } from '@/schemas';
+import {
+	PrismaClientKnownRequestError,
+	PrismaClientUnknownRequestError,
+} from '@prisma/client/runtime/library';
+import bcrypt from 'bcryptjs';
 
-export async function register(data: RegisterType) {
-    const validatedData = RegisterSchema.safeParse(data);
+type Response = { type: MessageType; content: string };
 
-    if (!validatedData.success) {
-        return {
-            type: 'error' as MessageType, content: 'Invalid fields.'
-        }
-    }
+export async function register(data: RegisterType): Promise<Response> {
+	const validatedData = RegisterSchema.safeParse(data);
 
-    const { username, email, password } = validatedData.data;
+	if (!validatedData.success) {
+		return {
+			type: 'error' as MessageType,
+			content: 'Invalid fields.',
+		};
+	}
 
-    const possibleUser = await db.user.findUnique({ where: { email }});
+	const { username, email, password } = validatedData.data;
 
-    if (possibleUser) { 
-        return { type: 'error' as MessageType, content: 'Email taken.' }
-    }
+	const possibleUser = await db.user.findUnique({ where: { email } });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+	if (possibleUser) {
+		return { type: 'error', content: 'Email taken.' };
+	}
 
-    await db.user.create({ data: {
-        name: username, email, password: hashedPassword
-    }});
+	const hashedPassword = await bcrypt.hash(password, 10);
 
-    return {
-        type: 'info' as MessageType,
-        content: 'User created!'
-    }
+	try {
+		await db.user.create({
+			data: {
+				name: username,
+				email,
+				password: hashedPassword,
+			},
+		});
+		// biome-ignore lint/suspicious/noExplicitAny: `any` is better than `unknown`
+	} catch (err: any) {
+		if (
+			'name' in err ||
+			err instanceof PrismaClientKnownRequestError ||
+			err instanceof PrismaClientUnknownRequestError
+		)
+			return {
+				type: 'error',
+				content: err.name,
+			};
+	}
+
+	return {
+		type: 'info',
+		content: 'User created!',
+	};
 }
