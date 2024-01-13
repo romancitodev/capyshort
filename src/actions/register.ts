@@ -23,11 +23,15 @@ export async function register(data: RegisterType): Promise<Response> {
 
 	const { username, email, password } = validatedData.data;
 
-	const possibleUser = await db.user.findUnique({ where: { email } });
+	const possibleUser = await db.user.findFirst({
+		where: { OR: [{ name: username }, { email }] },
+	});
 
-	if (possibleUser) {
+	if (possibleUser && possibleUser.email === email)
 		return { type: 'error', content: 'Email taken.' };
-	}
+
+	if (possibleUser && possibleUser.name === username)
+		return { type: 'error', content: 'Username taken.' };
 
 	const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -48,7 +52,7 @@ export async function register(data: RegisterType): Promise<Response> {
 		)
 			return {
 				type: 'error',
-				content: err.name,
+				content: err.message,
 			};
 	}
 
