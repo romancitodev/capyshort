@@ -37,10 +37,11 @@ model Account {
 }
 
 model Link {
-  id     String @id @default(cuid())
+  id     String  @id @default(cuid())
   url    String
-  code   String @unique
-  userId String @map("user_id")
+  code   String  @unique
+  name   String?
+  userId String? @map("user_id")
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

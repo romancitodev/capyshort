@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { string, z } from 'zod';
 
 export const LoginSchema = z.object({
 	username: z.string().min(1, {
@@ -11,11 +11,14 @@ export type LoginType = z.infer<typeof LoginSchema>;
 
 export const RegisterSchema = z
 	.object({
-		username: z.string().min(1, {
-			message: 'Username is required!',
-		}).transform(user => {
-			return user.toLowerCase()
-		}),
+		username: z
+			.string()
+			.min(1, {
+				message: 'Username is required!',
+			})
+			.transform(user => {
+				return user.toLowerCase();
+			}),
 		email: z.string().email({
 			message: 'Email is required!',
 		}),
@@ -60,3 +63,11 @@ export const RegisterSchema = z
 	});
 
 export type RegisterType = z.infer<typeof RegisterSchema>;
+
+export const UrlSchema = z.object({
+	url: z.string().url().min(1, { message: 'url is required' }),
+	name: z.string().nullable(),
+	custom_code: z.string().nullable(),
+});
+
+export type UrlType = z.infer<typeof UrlSchema>;
