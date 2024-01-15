@@ -15,7 +15,6 @@ export const {
 			return session;
 		},
 		async jwt({ token }) {
-			console.log(token);
 			return token;
 		},
 	},
