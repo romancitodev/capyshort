@@ -37,11 +37,13 @@ model Account {
 }
 
 model Link {
-  id     String  @id @default(cuid())
-  url    String
-  code   String  @unique
-  name   String?
-  userId String? @map("user_id")
+  id        String   @id @default(cuid())
+  url       String
+  code      String   @unique
+  name      String?
+  userId    String?  @map("user_id")
+  views     Int      @default(0) @db.Integer
+  createdAt DateTime @default(now()) @map("created_at")
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
