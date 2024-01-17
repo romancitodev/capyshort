@@ -1,7 +1,7 @@
 'use server';
 
-import { MessageType } from '@/components/messages';
 import { db } from '@/lib/db';
+import { ActionResponse } from '@/lib/types';
 import { RegisterSchema, type RegisterType } from '@/schemas';
 import {
 	PrismaClientKnownRequestError,
@@ -9,14 +9,12 @@ import {
 } from '@prisma/client/runtime/library';
 import bcrypt from 'bcryptjs';
 
-type Response = { type: MessageType; content: string };
-
-export async function register(data: RegisterType): Promise<Response> {
+export async function register(data: RegisterType): Promise<ActionResponse> {
 	const validatedData = RegisterSchema.safeParse(data);
 
 	if (!validatedData.success) {
 		return {
-			type: 'error' as MessageType,
+			type: 'error',
 			content: 'Invalid fields.',
 		};
 	}
