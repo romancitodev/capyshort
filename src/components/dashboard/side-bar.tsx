@@ -1,14 +1,14 @@
 'use client';
 
 import { SideButton } from '@/components/dashboard/button-bar';
-import { BarChart2, Home, LogIn, Plus } from 'lucide-react';
+import { AddUrlModal } from '@/components/dashboard/modal';
 import { Capybara } from '@/components/icons/capybara';
+import { useModal } from '@/hooks/modal';
 import { cn } from '@/lib/utils';
+import { BarChart2, Home, LogIn, Plus } from 'lucide-react';
+import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { AddUrlModal } from '@/components/dashboard/modal';
-import { useModal } from '@/hooks/modal';
-import { Session } from 'next-auth';
 
 export function Sidebar({ session }: { session: Session }) {
 	const { state, toggleState } = useModal();

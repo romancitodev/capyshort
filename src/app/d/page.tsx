@@ -6,7 +6,7 @@ export default async function DashboardPage() {
 	if (!session || !session.user) return;
 
 	return (
-		<div className='flex flex-col h-full w-full items-start'>
+		<div className='flex flex-col h-full w-full items-start p-5'>
 			<DashboardHome />
 		</div>
 	);
