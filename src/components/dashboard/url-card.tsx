@@ -1,36 +1,86 @@
 'use client';
 
 import { Link } from '@/lib/types';
-import { Copy, EyeIcon, Trash } from 'lucide-react';
+import { Copy, Eye, Settings } from 'lucide-react';
+import { Button } from '../ui/button';
 
 type CardProps = {} & Link;
 
-export function UrlCard({ views, url, name }: CardProps) {
+export function UrlCard({ views, createdAt, name, code, url }: CardProps) {
+	const formattedName = name ?? url;
+
 	return (
-		<div className='flex flex-col justify-between w-full h-full gap-y-5 rounded-xl bg-violet-50 ring-2 ring-violet-500 p-5'>
-			<div className='flex flex-col gap-y-2'>
-				<h2 className='font-bold text-lg text-zinc-950'>{name}</h2>
-				<div className='w-full min-h-[2px] bg-violet-300' />
-				<h1 className='text-violet-500'>
-					<a href={url} target='_blank' rel='noopener noreferrer'>
-						{url}
-					</a>
-				</h1>
-			</div>
-			<p className='flex flex-row justify-between text-violet-600'>
-				<p className='flex flex-row items-start gap-x-2 text-sm text-ellipsis'>
-					<EyeIcon size='20' />
-					<span className='font-bold text-zinc-600'>{views}</span>
-				</p>
-				<div className='flex gap-x-2'>
-					<button type='button'>
-						<Copy size='20' />
-					</button>
-					<button type='button'>
-						<Trash size='20' />
-					</button>
+		<div className='bg-white rounded-xl flex flex-1 px-4 py-2 gap-5 max-h-[75px] min-w-48 shadow-md items-center'>
+			<UrlImage />
+			<div className='w-full'>
+				<div className='flex flex-row items-center text-start gap-x-3 w-full'>
+					<UrlHeader content={formattedName} />
+					<Dot />
+					<UrlTimestamp content={createdAt.toLocaleDateString()} />
 				</div>
-			</p>
+				<UrlContent content={`capyshort.dev/${code}`} />
+			</div>
+			<div className='flex w-min gap-x-5 items-center'>
+				<UrlViews content={views} />
+				<Button className='w-[50px] h-[50px] bg-violet-100 text-violet-500 hover:textviolet-600 hover:bg-violet-200'>
+					<Settings size='20' />
+				</Button>
+			</div>
 		</div>
+	);
+}
+
+function UrlImage({ url }: { url?: string }) {
+	return (
+		<img
+			src={url ?? 'https://placehold.co/40x40'}
+			alt='icon of url'
+			className='max-w-10 min-w-10 max-h-10 min-h-10'
+		/>
+	);
+}
+
+function UrlHeader({ content }: { content: string }) {
+	return <h2 className=' font-semibold text-sm text-gray-700'>{content}</h2>;
+}
+
+function UrlTimestamp({ content }: { content: string }) {
+	return <h2 className=' font-semibold text-sm text-neutral-400'>{content}</h2>;
+}
+
+function UrlContent({ content }: { content: string }) {
+	return (
+		<h3 className='flex font-semibold text-stone-900 text-xl items-center gap-2'>
+			{content}
+			<span>
+				<Button variant='ghost'>
+					<Copy size='20' />
+				</Button>
+			</span>
+		</h3>
+	);
+}
+
+function UrlViews({ content }: { content: number }) {
+	return (
+		<p className='flex font-semibold text-sm gap-x-2'>
+			<Eye />
+			<span className=' min-w-10 text-end'>{content}</span>
+		</p>
+	);
+}
+
+function Dot() {
+	return (
+		<svg
+			width='6'
+			height='7'
+			viewBox='0 0 6 7'
+			fill='none'
+			xmlns='http://www.w3.org/2000/svg'
+		>
+			<title>Simple dot</title>
+			<circle cx='3' cy='3.5' r='3' fill='#1E1E1E' />
+		</svg>
 	);
 }

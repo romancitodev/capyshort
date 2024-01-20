@@ -5,10 +5,11 @@ import { AddUrlModal } from '@/components/dashboard/modal';
 import { Capybara } from '@/components/icons/capybara';
 import { useModal } from '@/hooks/modal';
 import { cn } from '@/lib/utils';
-import { BarChart2, Home, LogIn, Plus } from 'lucide-react';
+import { BarChart2 as Chart, Home, LogIn, Plus } from 'lucide-react';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
+import React from 'react';
 
 export function Sidebar({ session }: { session: Session }) {
 	const { state, toggleState } = useModal();
@@ -24,11 +25,11 @@ export function Sidebar({ session }: { session: Session }) {
 		);
 
 	return (
-		<>
+		<React.Fragment>
 			{state && (
 				<AddUrlModal state={state} onToggle={toggleState} session={session} />
 			)}
-			<section className='h-full w-60 flex flex-col mx-5 gap-y-5'>
+			<aside className='h-full w-60 flex flex-col mx-5 gap-y-5'>
 				<div className='flex w-full justify-center pt-5'>
 					<Capybara height='60' width='70' />
 				</div>
@@ -55,7 +56,7 @@ export function Sidebar({ session }: { session: Session }) {
 							'flex justify-center items-center gap-x-2',
 						)}
 					>
-						<BarChart2 size='20' />
+						<Chart size='20' />
 						Analytics
 					</SideButton>
 				</div>
@@ -70,7 +71,7 @@ export function Sidebar({ session }: { session: Session }) {
 						<LogIn size='20' color='#8b5cf6' />
 					</SideButton>
 				</div>
-			</section>
-		</>
+			</aside>
+		</React.Fragment>
 	);
 }

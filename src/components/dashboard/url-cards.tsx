@@ -7,7 +7,7 @@ type CardProps = {
 
 export function UrlCards({ cards }: CardProps) {
 	return (
-		<div className='w-full flex flex-row pt-5 gap-x-5'>
+		<div className='w-full flex flex-col gap-5'>
 			{cards.map(c => (
 				<UrlCard key={c.id} {...c} />
 			))}
