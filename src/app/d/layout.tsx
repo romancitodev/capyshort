@@ -1,5 +1,6 @@
 import { Sidebar } from '@/components/dashboard/side-bar';
 import { auth } from '@/app/auth';
+import { SidebarWrapper } from '@/components/dashboard/side-bar-wrapper';
 
 export default async function Layout({
 	children,
@@ -10,7 +11,9 @@ export default async function Layout({
 
 	return (
 		<div className='h-full flex flex-row'>
-			<Sidebar session={session} />
+			<SidebarWrapper session={session}>
+				<Sidebar />
+			</SidebarWrapper>
 			{children}
 		</div>
 	);
