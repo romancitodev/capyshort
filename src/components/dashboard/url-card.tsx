@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/dashboard/card';
 import { Link } from '@/lib/types';
 import { Settings } from 'lucide-react';
+import { relativeTime } from 'human-date';
 
 type CardProps = {} & Link;
 
@@ -13,8 +14,8 @@ export function UrlCard({ views, createdAt, name, code, url }: CardProps) {
 			<div className='w-full'>
 				<Card.Header>
 					{formattedName}
-					<h2 className=' font-semibold text-sm text-neutral-400'>
-						{createdAt.toDateString()}
+					<h2 className='font-normal text-sm text-neutral-400'>
+						{relativeTime(createdAt)}
 					</h2>
 				</Card.Header>
 				<Card.Content>{`capyshort.dev/${code}`}</Card.Content>
