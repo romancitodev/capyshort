@@ -1,6 +1,5 @@
 'use client';
 
-import { useModal } from '@/app/store/modal';
 import { Session } from 'next-auth';
 import { AddUrlModal } from './modal';
 import { useEffect, useState } from 'react';
@@ -13,18 +12,16 @@ type WrapperProps = {
 };
 
 export function SidebarWrapper({ children, session }: WrapperProps) {
-	const { showModal, toggleState } = useModal();
 	const [element, setElement] = useState<Maybe<Element>>();
-
 	useEffect(() => {
 		setElement(document.querySelector('#add-url-modal'));
 	}, []);
 
 	return (
 		<>
-			{showModal &&
+			{element &&
 				createPortal(
-					<AddUrlModal state={showModal} session={session} onToggle={toggleState} />,
+					<AddUrlModal session={session} />,
 					// biome-ignore lint/style/noNonNullAssertion: The element exists because we load it in the useEffect
 					element!,
 				)}

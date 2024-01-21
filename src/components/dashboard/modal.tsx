@@ -18,14 +18,15 @@ import { useEffect, useState, useTransition } from 'react';
 import { Session } from 'next-auth';
 import { newUrl } from '@/actions/new-url';
 import { Message, MessageType } from '../messages';
+import { useModal } from '@/app/store/modal';
 
 type ModalButtonProps = {
-	state: boolean;
 	session: Session;
-	onToggle: () => void;
 };
 
-export function AddUrlModal({ state, session, onToggle }: ModalButtonProps) {
+export function AddUrlModal({ session }: ModalButtonProps) {
+	const { showModal, toggleState } = useModal();
+
 	const form = useForm<UrlType>({
 		resolver: zodResolver(UrlSchema),
 		defaultValues: {
@@ -56,9 +57,9 @@ export function AddUrlModal({ state, session, onToggle }: ModalButtonProps) {
 	}, [form]);
 
 	return (
-		state && (
+		showModal && (
 			<Modal
-				onClose={() => onToggle()}
+				onClose={() => toggleState()}
 				header={<h2 className='font-bold text-xl'>Short a new link</h2>}
 				footer={
 					<div className=' text-violet-600 text-sm flex h-full w-full gap-x-2'>
