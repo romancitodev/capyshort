@@ -45,6 +45,7 @@ export function AddUrlModal({ state, session, onToggle }: ModalButtonProps) {
 	const onSubmit = (data: UrlType) => {
 		startTrasition(async () => {
 			setMessage(undefined);
+			// biome-ignore lint/style/noNonNullAssertion: We check this in the layout.tsx
 			const value = await newUrl(data, session.user!);
 			setMessage(value);
 		});
