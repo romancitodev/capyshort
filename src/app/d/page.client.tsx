@@ -2,7 +2,7 @@ import { UrlCards } from '@/components/dashboard/url-cards';
 import { auth } from '@/app/auth';
 import { getCardsByUser } from '@/data/card';
 import { Filters } from '@/components/dashboard/filters';
-import TotalCards from '@/components/dashboard/total-cards';
+import { TotalCards } from '@/components/ui/dashboard/info';
 
 export async function DashboardHome() {
 	const session = await auth();
