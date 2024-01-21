@@ -126,18 +126,16 @@ export function AddUrlModal({ state, session, onToggle }: ModalButtonProps) {
 											</p>
 											<Input
 												{...field}
-												value={field.value ?? ''}
+												value={
+													field.value
+														? field.value
+																.replaceAll(/[^a-zA-Z-]+/g, '-')
+																.replaceAll(' ', '-')
+																.replaceAll(/(\-+)/g, '-')
+														: ''
+												}
 												disabled={isPending}
 												placeholder='your-awesome-code'
-												// onChange={e => {
-												// 	const { value } = e.target;
-												// 	const result = value
-												// 		.replaceAll(/[^a-zA-Z-]+/g, '-')
-												// 		.replaceAll(' ', '-')
-												// 		.replaceAll(/(\-+)/g, '-');
-
-												// 	setCustomCode(result);
-												// }}
 											/>
 											<FormMessage />
 										</div>
