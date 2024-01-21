@@ -41,10 +41,10 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 		content: string;
 	}>();
 
-	const [isPending, startTrasition] = useTransition();
+	const [isPending, startTransition] = useTransition();
 
 	const onSubmit = (data: UrlType) => {
-		startTrasition(async () => {
+		startTransition(async () => {
 			setMessage(undefined);
 			// biome-ignore lint/style/noNonNullAssertion: We check this in the layout.tsx
 			const value = await newUrl(data, session.user!);
