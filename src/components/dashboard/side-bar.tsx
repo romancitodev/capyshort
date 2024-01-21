@@ -1,17 +1,20 @@
 'use client';
 
-import { SideButton } from '@/components/dashboard/button-bar';
-import { AddUrlModal } from '@/components/dashboard/modal';
+import { Panel } from '@/components/ui/dashboard/panel';
 import { Capybara } from '@/components/icons/capybara';
+import { BarChart2, Home, LogIn, Plus } from 'lucide-react';
 import { useModal } from '@/hooks/modal';
-import { cn } from '@/lib/utils';
-import { BarChart2 as Chart, Home, LogIn, Plus } from 'lucide-react';
-import { Session } from 'next-auth';
-import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import { cn } from '@/lib/utils';
+import { signOut } from 'next-auth/react';
+import { type Session } from 'next-auth';
+import { AddUrlModal } from './modal';
 
-export function Sidebar({ session }: { session: Session }) {
+type SidebarProps = {
+	session: Session;
+};
+
+export function Sidebar({ session }: SidebarProps) {
 	const { state, toggleState } = useModal();
 
 	const pathname = usePathname();
@@ -19,59 +22,50 @@ export function Sidebar({ session }: { session: Session }) {
 	const style = (path: string) =>
 		cn(
 			'transition-colors',
+			'flex justify-center items-center gap-x-2 w-full h-[50px]',
 			pathname === path && 'bg-violet-500 text-violet-100 hover:bg-violet-600',
 			pathname !== path &&
 				'bg-violet-100 text-violet-500 hover:bg-violet-200 hover:text-violet-600',
 		);
 
 	return (
-		<React.Fragment>
+		<>
 			{state && (
-				<AddUrlModal state={state} onToggle={toggleState} session={session} />
+				<AddUrlModal session={session} state={state} onToggle={toggleState} />
 			)}
-			<aside className='h-full w-60 flex flex-col mx-5 gap-y-5'>
-				<div className='flex w-full justify-center pt-5'>
+			<Panel>
+				<Panel.Header>
 					<Capybara height='60' width='70' />
-				</div>
-				<span className='min-h-[2px] w-full bg-violet-400' />
-				<div className='w-full grid'>
-					<SideButton
-						className='bg-violet-100 text-violet-500 hover:bg-violet-200'
+				</Panel.Header>
+				<Panel.Div>
+					<Panel.Button
+						className='bg-violet-100 text-violet-500 hover:bg-violet-200 w-full h-[50px]'
 						onClick={() => toggleState()}
 					>
-						<Plus size='20' color='#8b5cf6' />
-					</SideButton>
-				</div>
-				<span className='min-h-[2px] h-[2px] w-full bg-violet-400' />
-				<div className='w-full h-full flex flex-col gap-y-5'>
-					<SideButton
-						className={cn(style('/d'), 'flex justify-center items-center gap-x-2')}
-					>
+						<Plus />
+					</Panel.Button>
+				</Panel.Div>
+				<Panel.Content>
+					<Panel.Button className={style('/d')}>
 						<Home size='20' />
 						Home
-					</SideButton>
-					<SideButton
-						className={cn(
-							style('/d/analytics'),
-							'flex justify-center items-center gap-x-2',
-						)}
-					>
-						<Chart size='20' />
+					</Panel.Button>
+					<Panel.Button className={style('/d/analytics')}>
+						<BarChart2 size='20' />
 						Analytics
-					</SideButton>
-				</div>
-				<span className='min-h-[2px] w-full bg-violet-400' />
-				<div className='h-min w-full flex flex-col pb-5'>
-					<SideButton
-						className='bg-violet-100 text-violet-500 hover:bg-violet-200'
+					</Panel.Button>
+				</Panel.Content>
+				<Panel.Footer>
+					<Panel.Button
+						className='bg-violet-100 text-violet-500 hover:bg-violet-200 w-full h-[50px]'
 						onClick={() => {
 							signOut();
 						}}
 					>
-						<LogIn size='20' color='#8b5cf6' />
-					</SideButton>
-				</div>
-			</aside>
-		</React.Fragment>
+						<LogIn size='20' />
+					</Panel.Button>
+				</Panel.Footer>
+			</Panel>
+		</>
 	);
 }

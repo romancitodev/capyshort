@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function Header({
 	children,
 }: { children: React.ReactNode | React.ReactNode[] }) {
@@ -6,12 +8,13 @@ export function Header({
 		return (
 			<div className='flex flex-row items-center text-start gap-x-3 w-full'>
 				<h2 className='font-semibold text-sm text-gray-700'>{header}</h2>
-				{extra.map(item => {
+				{extra.map((item, index) => {
 					return (
-						<>
+						// biome-ignore lint/suspicious/noArrayIndexKey: In this case, the map is constant, so we now what are we talking about
+						<React.Fragment key={index}>
 							<Dot />
 							{item}
-						</>
+						</React.Fragment>
 					);
 				})}
 			</div>
