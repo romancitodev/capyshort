@@ -5,9 +5,5 @@ export default async function DashboardPage() {
 
 	if (!session || !session.user) return;
 
-	return (
-		<div className='grid h-full w-full items-start p-5 bg-zinc-100'>
-			<DashboardHome />
-		</div>
-	);
+	return <DashboardHome />;
 }

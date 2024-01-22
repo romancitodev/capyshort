@@ -10,11 +10,11 @@ export default async function Layout({
 	if (!session || !session.user) return;
 
 	return (
-		<div className='h-full flex flex-row'>
+		<div className='flex flex-row w-full h-full'>
 			<SidebarWrapper session={session}>
 				<Sidebar />
 			</SidebarWrapper>
-			{children}
+			<div className='w-full h-screen px-5 bg-zinc-100'>{children}</div>
 		</div>
 	);
 }
