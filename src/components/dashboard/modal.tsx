@@ -19,6 +19,8 @@ import { Session } from 'next-auth';
 import { newUrl } from '@/actions/new-url';
 import { Message, MessageType } from '../messages';
 import { useModal } from '@/app/store/modal';
+import { useLinks } from '@/app/store/links';
+import { isActionResponse } from '@/lib/types';
 
 type ModalButtonProps = {
 	session: Session;
@@ -26,6 +28,8 @@ type ModalButtonProps = {
 
 export function AddUrlModal({ session }: ModalButtonProps) {
 	const { showModal, toggleState } = useModal();
+
+	const { addLink } = useLinks();
 
 	const form = useForm<UrlType>({
 		resolver: zodResolver(UrlSchema),
@@ -48,13 +52,19 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 			setMessage(undefined);
 			// biome-ignore lint/style/noNonNullAssertion: We check this in the layout.tsx
 			const value = await newUrl(data, session.user!);
-			setMessage(value);
+			if (isActionResponse(value)) {
+				setMessage(value);
+			} else {
+				toggleState();
+				addLink(value);
+			}
 		});
 	};
 
 	useEffect(() => {
-		return form.reset({ url: '', name: '', custom_code: '' });
-	}, [form]);
+		// This shit is always true btw but we evaluate it because React errors with the dependencies array.
+		if (showModal) return form.reset({ url: '', name: '', custom_code: '' });
+	}, [showModal, form]);
 
 	return (
 		showModal && (
@@ -87,6 +97,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 											{...field}
 											disabled={isPending}
 											placeholder='https://youtube.com/...'
+											className='bg-transparent'
 										/>
 									</FormControl>
 									<FormMessage />
@@ -99,7 +110,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 								name='name'
 								render={({ field }) => {
 									return (
-										<FormItem className='flex w-full flex-col gap-2'>
+										<FormItem className='flex w-full flex-col'>
 											<p className='flex gap-x-2 text-start items-center'>
 												Name <span className='text-zinc-500 text-sm'>optional</span>
 											</p>
@@ -109,6 +120,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 													disabled={isPending}
 													value={field.value ?? ''}
 													placeholder='Rick roll'
+													className='bg-transparent'
 												/>
 											</FormControl>
 											<FormMessage />
@@ -121,7 +133,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 								name='custom_code'
 								render={({ field }) => {
 									return (
-										<div className='flex w-full flex-col gap-2'>
+										<FormItem className='flex w-full flex-col'>
 											<p className='text-violet-600 flex items-center gap-x-2'>
 												<span className='text-zinc-950'>Custom code</span>
 												<Sparkles size='20' />
@@ -138,9 +150,10 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 												}
 												disabled={isPending}
 												placeholder='your-awesome-code'
+												className='bg-transparent'
 											/>
 											<FormMessage />
-										</div>
+										</FormItem>
 									);
 								}}
 							/>
