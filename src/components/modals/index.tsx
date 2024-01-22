@@ -49,7 +49,7 @@ export function Modal({ children, onClose, header, footer }: ModalProps) {
 					exit={{ y: 500, opacity: 0 }}
 					ref={overlayRef}
 				>
-					<Card className='absolute h-min w-max grid grid-flow-row gap-2 p-5 bg-violet-50 shadow-sm rounded-xl'>
+					<Card className='absolute h-min w-max grid grid-flow-row gap-2 p-5 bg-white shadow-sm rounded-xl'>
 						{header && <CardHeader>{header}</CardHeader>}
 						<CardContent>{children}</CardContent>
 						<CardFooter>{footer}</CardFooter>
