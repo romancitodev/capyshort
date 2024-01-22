@@ -1,14 +1,14 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { ActionResponse, Maybe, isNotNull } from '@/lib/types';
+import { ActionResponse, Link, Maybe, isNotNull } from '@/lib/types';
 import { UrlSchema, UrlType } from '@/schemas';
 import { User } from 'next-auth';
 
 export async function newUrl(
 	data: UrlType,
 	session: Maybe<User>,
-): Promise<ActionResponse> {
+): Promise<ActionResponse | Link> {
 	const safeData = UrlSchema.safeParse(data);
 
 	if (!safeData.success) {
@@ -17,7 +17,7 @@ export async function newUrl(
 
 	const { url, custom_code, name } = safeData.data;
 
-	await db.link.create({
+	const result = await db.link.create({
 		data: {
 			userId: isNotNull(session) ? session.id : null,
 			url,
@@ -26,7 +26,7 @@ export async function newUrl(
 		},
 	});
 
-	return { type: 'success', content: 'Url created' };
+	return result;
 }
 
 const generateCode = () => Math.random().toString(36).substring(2);
