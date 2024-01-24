@@ -6,7 +6,7 @@ import { BarChart2, Home, LogIn, Plus } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { signOut } from 'next-auth/react';
-import { useModal } from '@/store/modal';
+import { useModal } from '@/store/new-modal';
 
 export function Sidebar() {
 	const { toggleState } = useModal();

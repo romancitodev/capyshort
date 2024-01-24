@@ -3,9 +3,9 @@
 import { Modal } from '@/components/modals';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { UrlSchema, UrlType } from '@/schemas';
+import { StrictUrlSchema, StrictUrlType } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Scissors, Sparkles } from 'lucide-react';
+import { Check, Sparkles } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import {
 	Form,
@@ -15,28 +15,26 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { useEffect, useState, useTransition } from 'react';
-import { Session } from 'next-auth';
-import { newUrl } from '@/actions/new-url';
-import { Message, MessageType } from '../messages';
-import { useModal } from '@/store/modal';
+import { Message, MessageType } from '@/components/messages';
+import { useModal } from '@/store/edit-modal';
 import { useLinks } from '@/store/links';
 import { isActionResponse } from '@/lib/types';
+import { Link } from '@prisma/client';
+import { editUrl } from '@/actions/edit-url';
 
-type ModalButtonProps = {
-	session: Session;
-};
+type ModalButtonProps = {} & Pick<Link, 'url' | 'code' | 'name' | 'id'>;
 
-export function AddUrlModal({ session }: ModalButtonProps) {
+export function EditUrlModal({ url, code, name, id }: ModalButtonProps) {
 	const { showModal, toggleState } = useModal();
 
-	const { addLink } = useLinks();
+	const { editLink } = useLinks();
 
-	const form = useForm<UrlType>({
-		resolver: zodResolver(UrlSchema),
+	const form = useForm<StrictUrlType>({
+		resolver: zodResolver(StrictUrlSchema),
 		defaultValues: {
-			url: '',
-			name: '',
-			custom_code: '',
+			url,
+			name,
+			code,
 		},
 	});
 
@@ -47,30 +45,29 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 
 	const [isPending, startTransition] = useTransition();
 
-	const onSubmit = (data: UrlType) => {
+	const onSubmit = (data: StrictUrlType) => {
 		startTransition(async () => {
 			setMessage(undefined);
-			// biome-ignore lint/style/noNonNullAssertion: We check this in the layout.tsx
-			const value = await newUrl(data, session.user!);
+			const value = await editUrl({ id, ...data, changed: data.code !== code });
 			if (isActionResponse(value)) {
 				setMessage(value);
 			} else {
 				toggleState();
-				addLink(value);
+				editLink({ id, ...data });
 			}
 		});
 	};
 
 	useEffect(() => {
 		// This shit is always true btw but we evaluate it because React errors with the dependencies array.
-		if (showModal) return form.reset({ url: '', name: '', custom_code: '' });
-	}, [showModal, form]);
+		if (showModal) return form.reset({ url, name, code });
+	}, [showModal, form, url, name, code]);
 
 	return (
 		showModal && (
 			<Modal
 				onClose={() => toggleState()}
-				header={<h2 className='font-bold text-xl'>Short a new link</h2>}
+				header={<h2 className='font-bold text-xl'>Edit the link</h2>}
 				footer={
 					<div className=' text-violet-600 text-sm flex h-full w-full gap-x-2'>
 						<Sparkles size='20' />
@@ -84,7 +81,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 				<Form {...form}>
 					<form
 						className='grid grid-flow-row gap-5'
-						onSubmit={form.handleSubmit(onSubmit)}
+						onSubmit={form.handleSubmit(onSubmit, console.log)}
 					>
 						<FormField
 							control={form.control}
@@ -130,7 +127,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 							/>
 							<FormField
 								control={form.control}
-								name='custom_code'
+								name='code'
 								render={({ field }) => {
 									return (
 										<FormItem className='flex w-full flex-col'>
@@ -143,7 +140,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 												value={
 													field.value
 														? field.value
-																.replaceAll(/[^a-zA-Z-]+/g, '-')
+																.replaceAll(/[^a-zA-Z-0-9	]+/g, '-')
 																.replaceAll(' ', '-')
 																.replaceAll(/(\-+)/g, '-')
 														: ''
@@ -166,8 +163,8 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 								type='submit'
 							>
 								<p className='text-violet-600 flex items-center gap-x-2'>
-									<Scissors size='20' />
-									<span>Short it!</span>
+									<Check size='20' />
+									<span>Confirm</span>
 								</p>
 							</Button>
 						</div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Session } from 'next-auth';
-import { AddUrlModal } from './modal';
+import { AddUrlModal } from './add-modal';
 import { useEffect, useState } from 'react';
 import { Maybe } from '@/lib/types';
 import { createPortal } from 'react-dom';

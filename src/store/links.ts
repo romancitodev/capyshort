@@ -7,6 +7,7 @@ interface LinkState {
 	addLink: (link: Link) => void;
 	removeLink: (link: Pick<Link, 'id'>) => void;
 	setLinks: (links: Link[]) => void;
+	editLink: (link: Partial<Link>) => void;
 	ordering: 'asc' | 'desc';
 	toggleOrdering: () => void;
 	filtering: boolean;
@@ -25,4 +26,9 @@ export const useLinks = create<LinkState>(set => ({
 	toggleOrdering: () =>
 		set(ctx => ({ ordering: ctx.ordering === 'asc' ? 'desc' : 'asc' })),
 	toggleFiltering: () => set(ctx => ({ filtering: !ctx.filtering })),
+	editLink: link => {
+		set(ctx => ({
+			links: ctx.links.map(l => (l.id === link.id ? { ...l, ...link } : l)),
+		}));
+	},
 }));

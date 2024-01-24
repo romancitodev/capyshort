@@ -71,3 +71,11 @@ export const UrlSchema = z.object({
 });
 
 export type UrlType = z.infer<typeof UrlSchema>;
+
+export const StrictUrlSchema = z.object({
+	url: z.string().url().min(1, { message: 'url is required' }),
+	name: z.string().nullable(),
+	code: z.string(),
+});
+
+export type StrictUrlType = z.infer<typeof StrictUrlSchema>;
