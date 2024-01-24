@@ -18,8 +18,8 @@ import { useEffect, useState, useTransition } from 'react';
 import { Session } from 'next-auth';
 import { newUrl } from '@/actions/new-url';
 import { Message, MessageType } from '../messages';
-import { useModal } from '@/app/store/modal';
-import { useLinks } from '@/app/store/links';
+import { useModal } from '@/store/modal';
+import { useLinks } from '@/store/links';
 import { isActionResponse } from '@/lib/types';
 
 type ModalButtonProps = {

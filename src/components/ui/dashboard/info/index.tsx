@@ -1,6 +1,6 @@
 'use client';
 
-import { useLinks } from '@/app/store/links';
+import { useLinks } from '@/store/links';
 import { Skeleton } from './skeleton';
 
 export { Skeleton };

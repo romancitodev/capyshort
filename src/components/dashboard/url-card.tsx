@@ -9,7 +9,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useLinks } from '@/app/store/links';
+import { useLinks } from '@/store/links';
 import { deleteUrl } from '@/actions/delete-url';
 
 type CardProps = {} & Link;
@@ -46,7 +46,7 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 							<Settings size='20' />
 						</Card.Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className='w-56'>
+					<DropdownMenuContent className='w-min'>
 						<DropdownMenuGroup className='grid gap-y-1'>
 							<DropdownMenuItem>
 								<Edit2 className='mr-2 h-4 w-4' />
