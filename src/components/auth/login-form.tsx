@@ -2,9 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ring } from 'ldrs';
-
-ring.register();
+import type {} from 'ldrs';
 
 import {
 	Form,

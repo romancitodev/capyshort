@@ -17,6 +17,11 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={poppins.className}>
+				<script
+					type='module'
+					defer
+					src='https://cdn.jsdelivr.net/npm/ldrs@1.0.1/dist/auto/ring.js'
+				/>
 				<div id='add-url-modal' />
 				{children}
 			</body>
