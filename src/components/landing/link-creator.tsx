@@ -4,6 +4,7 @@ import { Message, MessageType } from '@/components/messages';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { isActionResponse, isNotNull } from '@/lib/types';
 import { UrlSchema, UrlType } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -31,7 +32,7 @@ export function LinkCreator() {
 	const onSubmit = (e: UrlType) => {
 		startTransition(async () => {
 			const data = await newUrl(e, null);
-			setMessage(data);
+			if (isNotNull(data) && isActionResponse(data)) setMessage(data);
 		});
 	};
 	return (
