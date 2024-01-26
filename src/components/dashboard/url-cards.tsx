@@ -31,3 +31,11 @@ const sort = {
 	desc: (a: Link, b: Link) => b.createdAt.valueOf() - a.createdAt.valueOf(),
 	asc: (a: Link, b: Link) => a.createdAt.valueOf() - b.createdAt.valueOf(),
 };
+
+export function UrlCardsSkeleton() {
+	return (
+		<div className='w-full flex flex-col gap-5'>
+			<LoadingUrls />
+		</div>
+	);
+}

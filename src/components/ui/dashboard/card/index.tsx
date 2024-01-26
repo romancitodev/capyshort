@@ -6,7 +6,7 @@ import { Views } from './views';
 
 export function Card({ children }: { children: React.ReactNode }) {
 	return (
-		<div className='bg-white rounded-3xl flex px-4 py-2 gap-5 h-[90px] min-w-48 items-center'>
+		<div className='bg-white rounded-3xl flex px-6 py-4 gap-5 h-[90px] min-w-48 items-center'>
 			{children}
 		</div>
 	);

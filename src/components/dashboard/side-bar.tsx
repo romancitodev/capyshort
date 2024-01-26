@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { signOut } from 'next-auth/react';
 import { useModal } from '@/store/new-modal';
+import Link from 'next/link';
 
 export function Sidebar() {
 	const { toggleState } = useModal();
@@ -14,7 +15,7 @@ export function Sidebar() {
 
 	const style = (path: string) =>
 		cn(
-			'transition-colors',
+			'transition-all',
 			'flex justify-center items-center gap-x-2 w-full h-[50px] w-[50px]',
 			pathname === path &&
 				'bg-violet-500 text-violet-100 hover:bg-violet-600 rounded-xl',
@@ -31,12 +32,16 @@ export function Sidebar() {
 				<Plus />
 			</Panel.Button>
 			<Panel.Content>
-				<Panel.Button className={style('/d')}>
-					<Home size='20' />
-				</Panel.Button>
-				<Panel.Button className={style('/a')}>
-					<BarChart2 size='20' />
-				</Panel.Button>
+				<Link href='/d' as='/d'>
+					<Panel.Button className={style('/d')}>
+						<Home size='20' />
+					</Panel.Button>
+				</Link>
+				<Link href='/a'>
+					<Panel.Button className={style('/a')}>
+						<BarChart2 size='20' />
+					</Panel.Button>
+				</Link>
 				<Panel.Button className={style('/s')}>
 					<Settings size='20' />
 				</Panel.Button>
