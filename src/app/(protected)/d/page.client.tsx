@@ -12,7 +12,7 @@ export async function DashboardHome() {
 	const links = await getCardsByUser(session.user.id);
 
 	return (
-		<div className='grid w-full h-full gap-6'>
+		<div className='grid w-full h-auto gap-7'>
 			<StoreLinks links={links} />
 			<div className='flex h-full w-full gap-10 justify-between'>
 				<UrlCards />

@@ -11,13 +11,13 @@ export function UrlCards() {
 
 	if (loading)
 		return (
-			<div className='w-full flex flex-col gap-5'>
+			<div className='flex flex-col w-full h-full bg-zinc-100 gap-6 overflow-y-scroll scrollbar-hide'>
 				<LoadingUrls />
 			</div>
 		);
 
 	return (
-		<li className='flex flex-col w-full h-full bg-zinc-100 gap-6 overflow-y-scroll scrollbar-hide'>
+		<li className='flex flex-col w-full h-min gap-6 overflow-y-scroll scrollbar-hide'>
 			{links.length > 0 ? (
 				links.sort(sort[ordering]).map(c => (
 					<ul>
@@ -38,7 +38,7 @@ const sort = {
 
 export function UrlCardsSkeleton() {
 	return (
-		<div className='w-full flex flex-col gap-5'>
+		<div className='flex flex-col w-full h-full bg-zinc-100 gap-6 overflow-y-scroll scrollbar-hide'>
 			<LoadingUrls />
 		</div>
 	);

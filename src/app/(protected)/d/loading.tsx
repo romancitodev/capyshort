@@ -9,7 +9,7 @@ export default function LoadingDashboard() {
 		<div className='grid w-full h-full gap-6'>
 			<div className='flex h-full w-full gap-10 justify-between'>
 				<UrlCardsSkeleton />
-				<div className='grid w-2/6 h-full gap-6'>
+				<div className='flex flex-col w-2/6 h-full gap-6'>
 					<TotalCards />
 					<TotalClicks />
 				</div>
