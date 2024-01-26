@@ -8,11 +8,10 @@ import {
 	PrismaClientUnknownRequestError,
 } from '@prisma/client/runtime/library';
 
-type Data = Pick<Link, 'id' | 'url' | 'code' | 'name'> & { changed: boolean };
+type Data = Pick<Link, 'id' | 'code' | 'name'> & { changed: boolean };
 
 export async function editUrl({
 	id,
-	url,
 	code,
 	name,
 	changed,
@@ -28,7 +27,7 @@ export async function editUrl({
 	}
 
 	try {
-		await db.link.update({ data: { url, code, name }, where: { id } });
+		await db.link.update({ data: { code, name }, where: { id } });
 		// biome-ignore lint/suspicious/noExplicitAny: `any` is better than `unknown`
 	} catch (err: any) {
 		console.error(err);

@@ -92,7 +92,7 @@ export function EditUrlModal({ url, code, name, id }: ModalButtonProps) {
 									<FormControl>
 										<Input
 											{...field}
-											disabled={isPending}
+											disabled
 											placeholder='https://youtube.com/...'
 											className='bg-transparent'
 										/>
