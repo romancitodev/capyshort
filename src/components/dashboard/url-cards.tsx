@@ -17,13 +17,17 @@ export function UrlCards() {
 		);
 
 	return (
-		<div className='w-full h-full flex flex-col gap-6 p-2 pt-0 overflow-y-scroll scrollbar-hide'>
+		<li className='flex flex-col w-full h-full bg-zinc-100 gap-6 overflow-y-scroll scrollbar-hide'>
 			{links.length > 0 ? (
-				links.sort(sort[ordering]).map(c => <UrlCard key={c.id} {...c} />)
+				links.sort(sort[ordering]).map(c => (
+					<ul>
+						<UrlCard key={c.id} {...c} />
+					</ul>
+				))
 			) : (
 				<NoUrls />
 			)}
-		</div>
+		</li>
 	);
 }
 

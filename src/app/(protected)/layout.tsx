@@ -15,8 +15,8 @@ export default async function Layout({ children }: Props) {
 
 	return (
 		<div className='flex flex-col w-full h-full p-6 bg-zinc-100 gap-7'>
-			<div className='flex gap-10 h-min'>
-				<div className='w-full h-[90px] flex bg-white rounded-3xl shadow'>
+			<div className='flex gap-10 h-min w-full sticky top-5'>
+				<div className='w-full h-[90px] flex rounded-3xl'>
 					<Header />
 				</div>
 				<SidebarWrapper session={session}>
@@ -26,7 +26,7 @@ export default async function Layout({ children }: Props) {
 			<div className='flex w-full h-0.5 items-center justify-center'>
 				<span className='bg-stone-900 w-full h-full' />
 			</div>
-			<div className='w-full h-min'>{children}</div>
+			<div className='w-full h-full'>{children}</div>
 		</div>
 	);
 }

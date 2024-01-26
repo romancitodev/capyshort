@@ -36,7 +36,7 @@ export function Modal({ children, onClose, header, footer }: ModalProps) {
 	return (
 		<AnimatePresence>
 			<motion.div
-				className='w-full h-full backdrop-blur-md bg-black/30 fixed flex justify-center items-center'
+				className='z-10 w-full h-full backdrop-blur-md bg-black/30 fixed flex justify-center items-center'
 				initial={{ opacity: 0, position: 'fixed' }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.2 }}

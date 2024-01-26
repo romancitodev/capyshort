@@ -9,7 +9,7 @@ export function Header() {
 	return pathname === '/d' ? (
 		<Filters />
 	) : (
-		<header className='flex w-full items-center gap-5 justify-center'>
+		<header className='flex w-full items-center gap-5 justify-center rounded-3xl bg-white shadow'>
 			<Capybara height='50' width='42.1' />
 			<span className='font-bold text-2xl text-violet-600'>Capyshort</span>
 		</header>
