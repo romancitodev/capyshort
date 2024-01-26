@@ -17,7 +17,7 @@ export function UrlCards() {
 		);
 
 	return (
-		<div className='w-full h-full flex flex-col gap-5 p-2 pt-0 overflow-y-scroll scrollbar-hide'>
+		<div className='w-full h-full flex flex-col gap-6 p-2 pt-0 overflow-y-scroll scrollbar-hide'>
 			{links.length > 0 ? (
 				links.sort(sort[ordering]).map(c => <UrlCard key={c.id} {...c} />)
 			) : (

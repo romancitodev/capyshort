@@ -1,3 +1,7 @@
 export function Content({ children }: { children: React.ReactNode }) {
-	return <div className='w-full h-full flex flex-col gap-y-5'>{children}</div>;
+	return (
+		<div className='w-min h-full flex gap-5 items-center justify-between'>
+			{children}
+		</div>
+	);
 }
