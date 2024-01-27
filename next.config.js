@@ -1,3 +1,5 @@
+const { default: unplugin } = require("@beqa/unplugin-transform-react-slots");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -9,6 +11,10 @@ const nextConfig = {
             protocol: 'https',
             hostname: '**'
         }]
+    },
+    webpack(config) {
+        config.plugins.unshift(unplugin.webpack());
+        return config;
     }
 }
 

@@ -1,19 +1,21 @@
 import { UrlCriteria } from '@/criteria/spec/url';
 import { NameCriteria } from '@/criteria/spec/name';
-import { CustomCriteria } from '@/criteria/spec/_custom';
+import { Maybe } from '@/lib/types';
+import { Criteria } from '@/criteria';
 
 type Filters = { url?: string; name?: string };
 
 export function filterUrls<T>(items: T[], filters: Filters) {
-	const rules = new CustomCriteria(() => false);
+	let rules: Maybe<Criteria<T>> = null;
 
 	if (filters.url) {
-		rules.or(new UrlCriteria(filters.url.trim()));
+		rules = new UrlCriteria(filters.url.trim()) as Criteria<T>;
 	}
 
 	if (filters.name) {
-		rules.or(new NameCriteria(filters.name.trim()));
+		const rule = new NameCriteria(filters.name.trim()) as Criteria<T>;
+		rules = !rules ? rule : (rules.or(rule) as Criteria<T>);
 	}
 
-	return items.filter(item => rules.match(item));
+	return rules ? items.filter(item => rules?.match(item)) : items;
 }

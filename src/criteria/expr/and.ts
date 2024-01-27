@@ -1,11 +1,11 @@
-import { Criteria } from '@/criteria';
+import { ICriteria, ICriteriaExpr } from '@/criteria';
 
-export class AndCriteria<T> extends Criteria<T> {
+export class AndCriteria<T> implements ICriteria<T> {
 	constructor(
-		private lhs: Criteria<T>,
-		private rhs: Criteria<T>,
+		private lhs: ICriteriaExpr<T>,
+		private rhs: ICriteriaExpr<T>,
 	) {
-		super();
+		// super();
 	}
 	match(candidate: T): boolean {
 		return this.lhs.match(candidate) && this.rhs.match(candidate);

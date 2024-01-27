@@ -1,4 +1,5 @@
 import { Criteria } from '@/criteria';
+import { isLink } from '@/lib/types';
 
 export class UrlCriteria<T> extends Criteria<T> {
 	constructor(private keyword: string) {
@@ -6,7 +7,7 @@ export class UrlCriteria<T> extends Criteria<T> {
 	}
 
 	match(candidate: T): boolean {
-		if (typeof candidate === 'string') return this.keyword.includes(candidate);
+		if (isLink(candidate)) return candidate.url.includes(this.keyword);
 		return false;
 	}
 }

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 const fieldVariants = cva('w-full h-full', {
 	variants: {
 		variant: {
-			row: 'flex w-full justify-between items-center',
+			row: 'flex w-full gap-6 items-center',
 			grid: 'grid w-full gap-2',
 		},
 	},

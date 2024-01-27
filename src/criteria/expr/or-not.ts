@@ -1,12 +1,10 @@
-import { Criteria } from '@/criteria';
+import { type ICriteria } from '@/criteria';
 
-export class OrNotCriteria<T> extends Criteria<T> {
+export class OrNotCriteria<T> implements ICriteria<T> {
 	constructor(
-		private lhs: Criteria<T>,
-		private rhs: Criteria<T>,
-	) {
-		super();
-	}
+		private lhs: ICriteria<T>,
+		private rhs: ICriteria<T>,
+	) {}
 	match(candidate: T): boolean {
 		return this.lhs.match(candidate) || !this.rhs.match(candidate);
 	}
