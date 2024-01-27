@@ -8,7 +8,7 @@ import { useLinks } from '@/store/links';
 import { Capybara } from '../icons/capybara';
 
 export function Filters({ ...props }: React.HtmlHTMLAttributes<HTMLElement>) {
-	const { ordering, toggleOrdering } = useLinks();
+	const { ordering, toggleOrdering, setFilter } = useLinks();
 
 	return (
 		<FilterMenu {...props}>
@@ -17,6 +17,9 @@ export function Filters({ ...props }: React.HtmlHTMLAttributes<HTMLElement>) {
 					<Input
 						className='bg-transparent h-[50px] w-full rounded-xl'
 						placeholder='My cool alias'
+						onChange={e => {
+							setFilter(e.target.value);
+						}}
 					/>
 				</FilterMenu.Field>
 				<FilterMenu.Field className='w-min'>

@@ -1,16 +1,5 @@
 import { MessageType } from '@/components/messages';
-
-export type Link = {
-	id: string;
-	url: string;
-	code: string;
-	name: string | null;
-	userId: string | null;
-	views: number;
-	createdAt: Date;
-};
-
-export type Links = Link[];
+import { Link } from '@prisma/client';
 
 export type ActionResponse = {
 	type: MessageType;
@@ -30,5 +19,27 @@ export function isActionResponse(value: unknown): value is ActionResponse {
 		value !== null &&
 		'type' in value &&
 		'content' in value
+	);
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export function isLink(value: any): value is Link {
+	return (
+		typeof value === 'object' &&
+		value !== null &&
+		'id' in value &&
+		typeof value.id === 'string' &&
+		'url' in value &&
+		typeof value.url === 'string' &&
+		'code' in value &&
+		typeof value.code === 'string' &&
+		'name' in value &&
+		(typeof value.name === 'string' || value.name === null) &&
+		'userId' in value &&
+		(typeof value.userId === 'string' || value.userId === null) &&
+		'views' in value &&
+		typeof value.views === 'number' &&
+		'createdAt' in value &&
+		value.createdAt instanceof Date
 	);
 }
