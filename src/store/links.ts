@@ -10,25 +10,24 @@ interface LinkState {
 	editLink: (link: Partial<Link>) => void;
 	ordering: 'asc' | 'desc';
 	toggleOrdering: () => void;
-	filtering: boolean;
-	toggleFiltering: () => void;
+	filter?: string;
+	setFilter: (f: string) => void;
 }
 
 export const useLinks = create<LinkState>(set => ({
 	links: [],
 	loading: true,
 	ordering: 'desc',
-	filtering: false,
 	removeLink: (link: Pick<Link, 'id'>) =>
 		set(ctx => ({ links: ctx.links.filter(l => l.id !== link.id) })),
 	addLink: (link: Link) => set(ctx => ({ links: ctx.links.concat(link) })),
 	setLinks: (links: Link[]) => set(_ => ({ links, loading: false })),
 	toggleOrdering: () =>
 		set(ctx => ({ ordering: ctx.ordering === 'asc' ? 'desc' : 'asc' })),
-	toggleFiltering: () => set(ctx => ({ filtering: !ctx.filtering })),
 	editLink: link => {
 		set(ctx => ({
 			links: ctx.links.map(l => (l.id === link.id ? { ...l, ...link } : l)),
 		}));
 	},
+	setFilter: f => set(_ => ({ filter: f })),
 }));

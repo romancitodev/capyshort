@@ -1,3 +1,9 @@
+import { SlotLayout } from '../slot-layout';
+
 export default function No() {
-	return <h1>analytics</h1>;
+	return (
+		<SlotLayout>
+			<h1>hello, world!</h1>
+		</SlotLayout>
+	);
 }

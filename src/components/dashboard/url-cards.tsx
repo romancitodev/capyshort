@@ -5,9 +5,12 @@ import { NoUrls } from '@/components/dashboard/url-card.empty';
 import { useLinks } from '@/store/links';
 import { LoadingUrls } from './url-card.loading';
 import { Link } from '@prisma/client';
+import { filterUrls } from '@/criteria/filters/url';
 
 export function UrlCards() {
-	const { links, loading, ordering, filtering } = useLinks();
+	const { links, loading, ordering, filter } = useLinks();
+
+	const filtered = filter ? filterUrls(links, { name: filter }) : links;
 
 	if (loading)
 		return (
@@ -18,10 +21,10 @@ export function UrlCards() {
 
 	return (
 		<li className='flex flex-col w-full h-min gap-6 overflow-y-scroll scrollbar-hide'>
-			{links.length > 0 ? (
-				links.sort(sort[ordering]).map(c => (
-					<ul>
-						<UrlCard key={c.id} {...c} />
+			{filtered.length > 0 ? (
+				filtered.sort(sort[ordering]).map(c => (
+					<ul key={c.id}>
+						<UrlCard {...c} />
 					</ul>
 				))
 			) : (
