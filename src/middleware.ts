@@ -43,28 +43,33 @@ export default auth(async req => {
 
 	if (onAuthRoute && !isLogged) return null;
 
+	if (!onPublicRoute && !onProtectedRoute) {
+		try {
+			const url = nextUrl.pathname.slice(1, nextUrl.pathname.length);
+			const urlToFetch =
+				process.env.NODE_ENV !== 'production'
+					? `http://localhost:3000/api/link?code=${url}`
+					: `${process.env.DOMAIN}/api/link?code=${url}`;
+
+			console.log({ urlToFetch });
+
+			const foundedUrl: { link: string | null } = await (
+				await fetch(urlToFetch)
+			).json();
+
+			if (foundedUrl.link) {
+				return NextResponse.redirect(new URL(foundedUrl.link));
+			}
+		} catch (error) {
+			console.log(error);
+			return Response.redirect(new URL('/', nextUrl));
+		}
+	}
+
 	if (!isLogged && !onPublicRoute)
 		return Response.redirect(new URL('/login', nextUrl));
 
 	if (onPublicRoute || onProtectedRoute) return null;
-
-	try {
-		const url = nextUrl.pathname.slice(1, nextUrl.pathname.length);
-		const urlToFetch =
-			process.env.NODE_ENV !== 'production'
-				? `http://localhost:3000/api/link?code=${url}`
-				: `${process.env.DOMAIN}/api/link?code=${url}`;
-		const foundedUrl: { link: string | null } = await (
-			await fetch(urlToFetch)
-		).json();
-
-		if (foundedUrl.link) {
-			return NextResponse.redirect(new URL(foundedUrl.link));
-		}
-	} catch (error) {
-		console.log(error);
-		return Response.redirect(new URL('/', nextUrl));
-	}
 
 	return null;
 });
