@@ -4,14 +4,17 @@ import { Message, MessageType } from '@/components/messages';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { isActionResponse, isNotNull } from '@/lib/types';
+import { isActionResponse, isLink, isNotNull } from '@/lib/types';
 import { UrlSchema, UrlType } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 
 export function LinkCreator() {
+	const session = useSession();
+
 	const [isPending, startTransition] = useTransition();
 	const [message, setMessage] = useState<{
 		type: MessageType;
@@ -31,13 +34,20 @@ export function LinkCreator() {
 
 	const onSubmit = (e: UrlType) => {
 		startTransition(async () => {
-			const data = await newUrl(e, null);
+			const data = await newUrl(e, session.data?.user ?? null);
 			if (isNotNull(data) && isActionResponse(data)) setMessage(data);
+			if (isNotNull(data) && isLink(data)) {
+				const { code } = data;
+				setMessage({
+					type: 'info',
+					content: `Url shortened! http://capyshort.dev/${code}`,
+				});
+			}
 		});
 	};
 	return (
 		<motion.div
-			className='fixed w-full h-full flex flex-row items-center justify-center'
+			className='flex flex-col w-full rounded-3xl items-center gap-6'
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ y: 0, opacity: 1 }}
 			transition={{ duration: 0.5 }}
@@ -45,9 +55,9 @@ export function LinkCreator() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className='flex flex-col gap-5'
+					className='flex flex-col w-full bg-white shadow p-6 rounded-xl'
 				>
-					<div className='flex w-full gap-x-5 items-center justify-center'>
+					<div className='flex gap-5'>
 						<FormField
 							control={form.control}
 							name='url'
@@ -57,7 +67,7 @@ export function LinkCreator() {
 										<FormControl>
 											<Input
 												{...field}
-												className='w-max h-[50px]'
+												className='w-full h-[50px] transition-all ring-transparent bg-white'
 												placeholder='https://youtube.com/...'
 												disabled={isPending}
 											/>
@@ -69,26 +79,28 @@ export function LinkCreator() {
 						<Button
 							type='submit'
 							disabled={isPending}
-							className='px-5 h-[50px] bg-violet-50 text-violet-500  hover:bg-violet-200 hover:text-violet-600'
+							className='px-5 h-[50px] w-48 bg-violet-50 text-violet-500 hover:bg-violet-200 hover:text-violet-600'
 						>
 							Short it!
 						</Button>
 					</div>
-					<AnimatePresence>
-						<div>
-							<motion.div
-								className='w-full'
-								key='message-error'
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 0.5 }}
-							>
-								{!message && error && <Message type='error' content={error} />}
-								{!error && message && <Message {...message} />}
-							</motion.div>
-						</div>
-					</AnimatePresence>
 				</form>
+				<AnimatePresence>
+					<div className='w-full'>
+						<motion.div
+							className='w-full'
+							key='message-error'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.5 }}
+						>
+							<div className='flex flex-col gap-6'>
+								{error && <Message type='error' content={error} />}
+								{message && <Message {...message} />}
+							</div>
+						</motion.div>
+					</div>
+				</AnimatePresence>
 			</Form>
 		</motion.div>
 	);

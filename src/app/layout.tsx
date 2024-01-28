@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+import { cn } from '@/lib/utils';
 
 const poppins = Poppins({ weight: ['400', '500', '600'], subsets: ['latin'] });
 
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={poppins.className}>
+			<body className={cn(poppins.className, 'bg-zinc-100')}>
 				<script
 					type='module'
 					defer

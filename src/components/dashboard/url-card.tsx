@@ -1,5 +1,4 @@
 import { Card } from '@/components/ui/dashboard/card';
-import { Link } from '@/lib/types';
 import { Edit2, Settings, Trash2 } from 'lucide-react';
 import { relativeTime } from 'human-date';
 import {
@@ -14,6 +13,7 @@ import { deleteUrl } from '@/actions/delete-url';
 import { useModal } from '@/store/edit-modal';
 import { createPortal } from 'react-dom';
 import { EditUrlModal } from './edit-modal';
+import { Link } from '@prisma/client';
 
 type CardProps = {} & Link;
 

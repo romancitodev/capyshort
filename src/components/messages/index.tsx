@@ -19,7 +19,7 @@ export function Message(
 	return (
 		<div
 			className={cn(
-				'flex gap-x-5 items-center justify-center w-full h-[50px] rounded-xl font-bold',
+				'flex gap-x-5 items-center justify-center w-full h-[50px] rounded-xl font-bold shadow',
 				type === 'error' && 'bg-red-200/75 text-red-600 ',
 				type === 'warn' && 'bg-orange-200/75 text-orange-600 ',
 				type === 'success' && 'bg-emerald-200/75 text-emerald-600 ',

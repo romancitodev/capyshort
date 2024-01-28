@@ -1,4 +1,4 @@
-import { Link } from '@/lib/types';
+import { Link } from '@prisma/client';
 import { create } from 'zustand';
 
 interface LinkState {

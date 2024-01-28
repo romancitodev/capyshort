@@ -1,8 +1,9 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { ActionResponse, Link, Maybe, isNotNull } from '@/lib/types';
+import { ActionResponse, Maybe, isNotNull } from '@/lib/types';
 import { UrlSchema, UrlType } from '@/schemas';
+import { Link } from '@prisma/client';
 import { User } from 'next-auth';
 
 export async function newUrl(
