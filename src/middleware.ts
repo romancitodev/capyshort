@@ -13,6 +13,8 @@ const { auth } = NextAuth(authConfig);
 export default auth(async req => {
 	const { nextUrl } = req;
 
+	console.log(nextUrl);
+
 	/// css stuff
 	if (nextUrl.pathname.startsWith('/_next/')) {
 		return NextResponse.next();
@@ -25,10 +27,21 @@ export default auth(async req => {
 	const onAuthRoute = authRoutes.includes(nextUrl.pathname);
 	const onProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
 
+	console.log({
+		isLogged,
+		onApiRoute,
+		onPublicRoute,
+		onAuthRoute,
+		onProtectedRoute,
+	});
+
 	if (onApiRoute) return null;
+	if (onPublicRoute) return null;
 
 	if (onAuthRoute && isLogged)
 		return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+
+	if (onAuthRoute && !isLogged) return null;
 
 	if (!isLogged && !onPublicRoute)
 		return Response.redirect(new URL('/login', nextUrl));
@@ -40,7 +53,7 @@ export default auth(async req => {
 		const urlToFetch =
 			process.env.NODE_ENV !== 'production'
 				? `http://localhost:3000/api/link?code=${url}`
-				: (process.env.DOMAIN as string);
+				: `${process.env.DOMAIN}/api/link?code=${url}`;
 		const foundedUrl: { link: string | null } = await (
 			await fetch(urlToFetch)
 		).json();
@@ -57,14 +70,5 @@ export default auth(async req => {
 });
 
 export const config = {
-	matcher: [
-		/*
-		 * Match all request paths except for the ones starting with:
-		 * - api (API routes)
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico (favicon file)
-		 */
-		'/((?!api|_next/static|_next/image|favicon.ico).*)',
-	],
+	matchers: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };
