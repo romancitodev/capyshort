@@ -37,8 +37,12 @@ export default auth(async req => {
 
 	try {
 		const url = nextUrl.pathname.slice(1, nextUrl.pathname.length);
+		const urlToFetch =
+			process.env.NODE_ENV !== 'production'
+				? `http://localhost:3000/api/link?code=${url}`
+				: (process.env.DOMAIN as string);
 		const foundedUrl: { link: string | null } = await (
-			await fetch(`http://localhost:3000/api/link?code=${url}`)
+			await fetch(urlToFetch)
 		).json();
 
 		if (foundedUrl.link) {
