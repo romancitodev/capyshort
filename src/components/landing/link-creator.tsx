@@ -37,17 +37,16 @@ export function LinkCreator() {
 			const data = await newUrl(e, session.data?.user ?? null);
 			if (isNotNull(data) && isActionResponse(data)) setMessage(data);
 			if (isNotNull(data) && isLink(data)) {
-				const { code } = data;
 				setMessage({
 					type: 'info',
-					content: `Url shortened! http://capyshort.dev/${code}`,
+					content: 'Added to clipboard!',
 				});
 			}
 		});
 	};
 	return (
 		<motion.div
-			className='flex flex-col items-center gap-5 w-[288px] md:w-[522px] lg:w-[610px] xl:w-[690px]'
+			className='flex flex-col items-center px-5 sm:px-0 gap-5 w-full md:w-[522px] lg:w-[610px] xl:w-[690px]'
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ y: 0, opacity: 1 }}
 			transition={{ duration: 0.5 }}
@@ -55,9 +54,9 @@ export function LinkCreator() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className='flex flex-col w-full'
+					className='flex flex-col w-full gap-6'
 				>
-					<div className='flex gap-5 w-full h-[34px]'>
+					<div className='flex flex-col sm:flex-row gap-5 w-full min-h-[34px] items-center'>
 						<FormField
 							control={form.control}
 							name='url'
@@ -79,28 +78,28 @@ export function LinkCreator() {
 						<Button
 							type='submit'
 							disabled={isPending}
-							className='h-full px-5 py-2 w-20 bg-violet-400/95 backdrop-blur-lg text-xs md:text-md shadow-[0_0_16px_var(--tw-shadow-color)] shadow-violet-300/75'
+							className='h-full px-5 py-2 w-full sm:w-20 bg-violet-400/95 backdrop-blur-lg text-xs md:text-md shadow-[0_0_16px_var(--tw-shadow-color)] shadow-violet-300/75'
 						>
 							Short
 						</Button>
 					</div>
+					<AnimatePresence>
+						<div className='w-full'>
+							<motion.div
+								className='w-full'
+								key='message-error'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.5 }}
+							>
+								<div className='flex flex-col gap-6'>
+									{error && <Message type='info' content={error} />}
+									{message && <Message {...message} />}
+								</div>
+							</motion.div>
+						</div>
+					</AnimatePresence>
 				</form>
-				<AnimatePresence>
-					<div className='w-full'>
-						<motion.div
-							className='w-full'
-							key='message-error'
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ duration: 0.5 }}
-						>
-							<div className='flex flex-col gap-6'>
-								{error && <Message type='info' content={error} />}
-								{message && <Message {...message} />}
-							</div>
-						</motion.div>
-					</div>
-				</AnimatePresence>
 			</Form>
 		</motion.div>
 	);

@@ -9,19 +9,19 @@ export default async function Home() {
 	const session = await auth();
 
 	return (
-		<main className='h-full flex flex-col items-center gap-52'>
-			<Light className='absolute dark:text-light fill-current -z-10 w-min' />
+		<main className='h-full w-full flex flex-col items-center gap-52'>
+			<Light className='absolute -top-1/4 dark:bg-light -z-10 w-full' />
 			<SessionProvider session={session}>
 				<Navbar />
 			</SessionProvider>
-			<div className='flex justify-center items-center'>
-				<div className='flex flex-col items-center gap-y-24 w-[648px]'>
-					<div className='flex flex-col gap-4 w-full items-center text-2xl md:text-[32px]'>
+			<div className='flex justify-center items-center w-full sm:w-4/5'>
+				<div className='flex flex-col items-center gap-y-24 w-full'>
+					<div className='flex flex-col gap-4 w-full md:w-[648px] items-center text-2xl md:text-[32px]'>
 						<h1 className='font-semibold inline-flex gap-2 text-purple-100'>
 							Short Your links for
-							<span className='text-violet-300 font-extrabold [text-shadow:_0_0_16px_var(--tw-shadow-color)] shadow-purple-100/75'>
+							<p className='text-violet-300 font-extrabold [text-shadow:_0_0_16px_var(--tw-shadow-color)] shadow-purple-100/75'>
 								Free
-							</span>
+							</p>
 						</h1>
 						<h2 className='text-purple-100/75 font-normal text-xs md:text-sm'>
 							Keep track of the links you share in real time
@@ -32,6 +32,7 @@ export default async function Home() {
 					</SessionProvider>
 				</div>
 			</div>
+			<Light className='absolute top-1/2 dark:bg-light -z-10 w-4/5 h-4/5 md:h-2/5 md:w-2/5' />
 			<div className='w-full px-5 pb-6 sm:px-0 h-full flex flex-col xl:flex-row gap-12 justify-between sm:w-[350px] md:w-[660px] xl:w-[926px] 2xl:w-[1200px]'>
 				<Card
 					title='Leading 2024'

@@ -7,7 +7,7 @@ type CardProps = {
 
 export function Card({ title, content }: CardProps) {
 	return (
-		<div className='flex flex-col p-5 gap-3 bg-primary/30 border border-primary/50 rounded-xl h-min'>
+		<div className='flex flex-col p-5 gap-3 bg-primary/15 border border-primary/50 rounded-xl h-min backdrop-blur-md'>
 			<div className='inline-flex gap-2 font-medium text-lg items-center'>
 				<Star size='20' /> {title}
 			</div>
