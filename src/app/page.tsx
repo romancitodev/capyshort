@@ -33,27 +33,18 @@ export default async function Home() {
 				</div>
 			</div>
 			<Light className='absolute top-[55%] md:top-[65%] dark:bg-light/65 -z-10 w-4/5 h-4/5 md:h-1/4 md:w-1/4' />
-			<div className='w-full px-5 pb-6 sm:px-0 h-full flex flex-col xl:flex-row gap-12 justify-between sm:w-[350px] md:w-[660px] xl:w-[926px] 2xl:w-[1200px]'>
+			<div className='w-full px-5 pb-6 sm:px-0 h-full grid grid-flow-row xl:grid xl:grid-cols-3 gap-12 justify-between sm:w-[350px] md:w-[660px] xl:w-[926px] 2xl:w-[1200px]'>
 				<Card
 					title='Leading 2024'
-					content='Constantly pushing boundaries, CapyShort is at the forefront of link
-shortening innovation. From cutting-edge tools to community-driven
-development, we\re shaping the industry and setting the benchmark for
-others to follow.'
+					content='At the forefront of link shortening innovation, CapyShort leads with simplicity and user-friendliness. Our streamlined approach and commitment to a straightforward user experience set the industry standard. Join us as we shape the link management landscape and redefine simplicity.'
 				/>
 				<Card
-					title='Leading 2024'
-					content='Constantly pushing boundaries, CapyShort is at the forefront of link
-shortening innovation. From cutting-edge tools to community-driven
-development, we\re shaping the industry and setting the benchmark for
-others to follow.'
+					title='User-Friendly'
+					content='Experience link shortening made simple with CapyShort. Our platform is dedicated to being exceptionally user-friendly, providing an intuitive interface and a hassle-free experience. From novices to experts, everyone can efficiently manage and share links effortlessly.'
 				/>
 				<Card
-					title='Leading 2024'
-					content='Constantly pushing boundaries, CapyShort is at the forefront of link
-shortening innovation. From cutting-edge tools to community-driven
-development, we\re shaping the industry and setting the benchmark for
-others to follow.'
+					title='Modern & Sleek Design'
+					content='CapyShort combines modern aesthetics with user-friendly design for a refreshing link management experience. Navigate effortlessly through our sleek interface, backed by cutting-edge tools and community-driven development. Join us in setting the benchmark for simplicity in link shortening.'
 				/>
 			</div>
 		</main>
