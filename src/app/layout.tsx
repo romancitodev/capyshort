@@ -38,7 +38,10 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={cn(poppins.className, 'bg-background dark:bg-background px-5')}
+				className={cn(
+					poppins.className,
+					'bg-background dark:bg-background px-5 overflow-x-hidden overflow-y-auto',
+				)}
 			>
 				<script
 					type='module'

@@ -19,7 +19,7 @@ export function Navbar() {
 				<div className='inline-flex gap-2'>
 					{user ? (
 						<>
-							<Button>
+							<Button variant='ghost'>
 								<Link href='/d'>Dashboard</Link>
 							</Button>
 							<Button onClick={() => signOut()}>Log out</Button>
