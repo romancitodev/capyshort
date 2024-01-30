@@ -8,8 +8,8 @@ export default async function Home() {
 	const session = await auth();
 
 	return (
-		<main className='w-full h-full flex flex-col items-center gap-52'>
-			<Light className='absolute dark:text-light fill-current -z-10' />
+		<main className='h-full flex flex-col items-center gap-52'>
+			<Light className='absolute dark:text-light fill-current -z-10 w-min' />
 			<SessionProvider session={session}>
 				<Navbar />
 			</SessionProvider>
