@@ -10,7 +10,7 @@ export default async function Home() {
 
 	return (
 		<main className='h-full w-full flex flex-col items-center gap-52'>
-			<Light className='absolute -top-1/4 dark:bg-light -z-10 w-full' />
+			<Light className='absolute -top-1/4 dark:bg-light -z-10 w-4/5 lg:w-2/5' />
 			<SessionProvider session={session}>
 				<Navbar />
 			</SessionProvider>
@@ -32,7 +32,7 @@ export default async function Home() {
 					</SessionProvider>
 				</div>
 			</div>
-			<Light className='absolute top-1/2 2xl:top-3/5 dark:bg-light -z-10 w-4/5 h-4/5 md:h-2/5 md:w-2/5' />
+			<Light className='absolute top-[55%] md:top-[65%] dark:bg-light/65 -z-10 w-4/5 h-4/5 md:h-1/4 md:w-1/4' />
 			<div className='w-full px-5 pb-6 sm:px-0 h-full flex flex-col xl:flex-row gap-12 justify-between sm:w-[350px] md:w-[660px] xl:w-[926px] 2xl:w-[1200px]'>
 				<Card
 					title='Leading 2024'
