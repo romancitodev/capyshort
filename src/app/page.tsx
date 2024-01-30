@@ -2,12 +2,14 @@ import { LinkCreator } from '@/components/landing/link-creator';
 import { auth } from './auth';
 import { SessionProvider } from 'next-auth/react';
 import { Navbar } from '@/components/landing/nav-bar';
+import { Light } from '@/components/landing/light';
 
 export default async function Home() {
 	const session = await auth();
 
 	return (
-		<main className='w-full h-full flex flex-col items-center p-2 gap-52'>
+		<main className='w-full h-full flex flex-col items-center gap-52'>
+			<Light className='absolute dark:text-light fill-current -z-10' />
 			<SessionProvider session={session}>
 				<Navbar />
 			</SessionProvider>
