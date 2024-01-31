@@ -8,7 +8,7 @@ import { Header } from './header';
 export function Panel({ children }: { children: React.ReactNode[] }) {
 	const [head, ...tail] = children;
 	return (
-		<aside className='rounded-3xl h-[90px] w-2/6  p-5 flex bg-white shadow items-center justify-between'>
+		<aside className='flex rounded-xl min-h-[54px] max-h-[54px] px-3 w-full xl:w-1/2 2xl:w-2/6 bg-primary/30 items-center gap-6'>
 			{head}
 			{tail.map((item, index) => {
 				return (
@@ -30,5 +30,5 @@ Panel.Header = Header;
 Panel.Div = Div;
 
 function Separator() {
-	return <span className=' min-w-0.5 h-7  bg-stone-900  rounded-full' />;
+	return <span className=' min-w-0.5 h-6 bg-primary/50 rounded-full' />;
 }

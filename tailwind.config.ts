@@ -19,6 +19,8 @@ const config = {
 		},
 		extend: {
 			colors: {
+				'url-card': 'hsla(var(--url-card))',
+				'url-ring': 'hsla(var(--url-ring))',
 				light: 'hsla(var(--light))',
 				border: 'hsla(var(--border))',
 				input: 'hsla(var(--input))',

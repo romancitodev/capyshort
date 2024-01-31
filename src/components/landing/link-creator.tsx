@@ -93,7 +93,7 @@ export function LinkCreator() {
 								transition={{ duration: 0.5 }}
 							>
 								<div className='flex flex-col gap-6'>
-									{error && <Message type='info' content={error} />}
+									{error && <Message type='error' content={error} />}
 									{message && <Message {...message} />}
 								</div>
 							</motion.div>

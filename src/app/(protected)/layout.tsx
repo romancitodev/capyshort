@@ -1,7 +1,14 @@
+import { Light } from '@/components/landing/light';
+
 type Props = {
 	children: React.ReactNode;
 };
 
 export default function Layout({ children }: Props) {
-	return <div className='w-full h-full'>{children}</div>;
+	return (
+		<div className='w-full h-full'>
+			<Light className='absolute -top-1/4 dark:bg-light -z-10 w-4/5' />
+			{children}
+		</div>
+	);
 }

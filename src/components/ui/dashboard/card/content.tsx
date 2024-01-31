@@ -1,6 +1,6 @@
 export function Content({ children }: { children: React.ReactNode }) {
 	return (
-		<h3 className='flex font-semibold text-stone-900 text-xl items-center gap-2'>
+		<h3 className='flex font-medium text-lg text-violet-100 items-center gap-2'>
 			{children}
 		</h3>
 	);

@@ -21,7 +21,7 @@ export default async function DashboardHome() {
 				<div className='flex h-full w-full gap-10 justify-between'>
 					<StoreLinks links={links} />
 					<UrlCards />
-					<div className='flex flex-col w-2/6 h-full gap-6'>
+					<div className='flex-col w-2/6 h-full gap-6 hidden lg:flex'>
 						<TotalCards />
 						<TotalClicks />
 					</div>
