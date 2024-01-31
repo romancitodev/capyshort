@@ -13,7 +13,7 @@ export function Navbar() {
 	const user = session.data;
 
 	return (
-		<header className='sticky bg-primary/15 rounded-xl py-2 px-3 h-14 flex transition-colors items-center justify-between backdrop-blur-md xl:w-[926px] lg:w-[820px] md:w-[658px] sm:w-[450px] w-full top-5 z-20'>
+		<header className='sticky bg-primary/15 rounded-xl py-2 px-3 h-14 flex transition-colors items-center justify-between backdrop-blur-md xl:w-[926px] lg:w-[820px] md:w-[658px] sm:w-[450px] w-full top-5 z-10'>
 			<Capybara />
 			<div className='inline-flex items-center gap-5 h-[36px]'>
 				<div className='inline-flex gap-2'>
