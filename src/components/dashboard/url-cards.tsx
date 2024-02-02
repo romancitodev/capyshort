@@ -20,7 +20,7 @@ export function UrlCards() {
 		);
 
 	return (
-		<li className='flex flex-col w-full h-min gap-6 overflow-y-scroll scrollbar-hide'>
+		<li className='flex flex-col-reverse lg:flex-col w-full h-max gap-6 overflow-y-scroll max-h-full scrollbar-hide'>
 			{filtered.length > 0 ? (
 				filtered.sort(sort[ordering]).map(c => (
 					<ul key={c.id}>
