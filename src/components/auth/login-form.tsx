@@ -50,7 +50,7 @@ export function LoginForm() {
 		<Card
 			href='/register'
 			back={
-				<p>
+				<p className='text-xs md:text-base w-full text-wrap text-white/75'>
 					Don't have an account? <span className='font-bold'>Register here</span>
 				</p>
 			}
@@ -101,7 +101,7 @@ export function LoginForm() {
 					/>
 					{message && <Message {...message} />}
 					<CardButton
-						className='text-violet-50 bg-violet-500 hover:bg-violet-600 disabled:bg-[#654D9D] disabled:text-violet-200 flex gap-x-2'
+						className='text-violet-50 h-[34px] disabled:bg-[#654D9D] disabled:text-violet-200 flex gap-x-2 bg-violet-600/15 text-sm p-5 border border-violet-500/50'
 						type='submit'
 						disabled={isPending}
 					>
