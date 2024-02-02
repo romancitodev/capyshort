@@ -9,7 +9,7 @@ export default async function Home() {
 	const session = await auth();
 
 	return (
-		<main className='h-full w-full flex flex-col items-center gap-52'>
+		<main className='h-full w-full flex flex-col items-center gap-52 p-5'>
 			<div className='absolute inset-0 -z-20 h-full w-full dark:bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]' />
 			<Light className='absolute -top-1/4 dark:bg-light -z-10 w-4/5 lg:w-2/5' />
 			<SessionProvider session={session}>
@@ -34,7 +34,7 @@ export default async function Home() {
 				</div>
 			</div>
 			<Light className='absolute top-[55%] md:top-[65%] dark:bg-light/65 -z-10 w-4/5 h-4/5 md:h-1/4 md:w-1/4' />
-			<div className='w-full px-5 pb-6 sm:px-0 h-full grid grid-flow-row xl:grid xl:grid-cols-3 gap-12 justify-between sm:w-[350px] md:w-[660px] xl:w-[926px] 2xl:w-[1200px]'>
+			<div className='w-full px-5 h-max lg:max-h-[300px] grid grid-flow-row xl:grid xl:grid-cols-3 gap-12 justify-between sm:w-[350px] md:w-[660px] xl:w-[926px] 2xl:w-[1200px]'>
 				<Card
 					title='Leading 2024'
 					content='At the forefront of link shortening innovation, CapyShort leads with simplicity and user-friendliness. Our streamlined approach and commitment to a straightforward user experience set the industry standard. Join us as we shape the link management landscape and redefine simplicity.'

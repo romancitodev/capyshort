@@ -36,20 +36,20 @@ export function Modal({ children, onClose, header, footer }: ModalProps) {
 	return (
 		<AnimatePresence>
 			<motion.div
-				className='z-10 w-full h-full backdrop-blur-md bg-black/30 fixed flex justify-center items-center'
+				className='absolute z-10 w-full p-4 h-full backdrop-blur-md bg-black/30 flex items-center justify-center'
 				initial={{ opacity: 0, position: 'fixed' }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.2 }}
 			>
 				<motion.div
-					className='w-full h-full fixed flex justify-center items-center'
+					className='w-full h-full flex justify-center items-center'
 					initial={{ opacity: 0, y: 500 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.4 }}
 					exit={{ y: 500, opacity: 0 }}
 					ref={overlayRef}
 				>
-					<Card className='absolute h-min w-max grid grid-flow-row gap-2 p-5 bg-white shadow-sm rounded-xl'>
+					<Card className='h-max w-max p-5 bg-card/25 backdrop-blur-md shadow-sm rounded-xl border-violet-500/25'>
 						{header && <CardHeader>{header}</CardHeader>}
 						<CardContent>{children}</CardContent>
 						<CardFooter>{footer}</CardFooter>

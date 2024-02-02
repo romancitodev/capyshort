@@ -14,6 +14,14 @@ export async function GET(
 		const link = await db.link.findUnique({ where: { code } });
 
 		if (link) {
+			await db.link.update({
+				data: {
+					views: link.views + 1,
+				},
+				where: {
+					id: link.id,
+				},
+			});
 			return NextResponse.json({ link: link.url });
 		}
 

@@ -72,9 +72,9 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 				onClose={() => toggleState()}
 				header={<h2 className='font-bold text-xl'>Short a new link</h2>}
 				footer={
-					<div className=' text-violet-600 text-sm flex h-full w-full gap-x-2'>
+					<div className='text-violet-200 text-sm flex h-full w-full gap-x-2 opacity-75'>
 						<Sparkles size='20' />
-						<p className='text-zinc-600'>
+						<p className=' text-card-foreground text-opacity-50'>
 							Only <span className='font-bold'>pro</span> subscribers can use these
 							features.
 						</p>
@@ -83,7 +83,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 			>
 				<Form {...form}>
 					<form
-						className='grid grid-flow-row gap-5'
+						className='grid grid-flow-row gap-10 w-full'
 						onSubmit={form.handleSubmit(onSubmit)}
 					>
 						<FormField
@@ -97,14 +97,14 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 											{...field}
 											disabled={isPending}
 											placeholder='https://youtube.com/...'
-											className='bg-transparent'
+											className='bg-black/50 ring-0 border border-violet-600/75'
 										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
-						<div className='grid grid-flow-col grid-cols-2 gap-x-5'>
+						<div className='grid grid-flow-row md:grid-flow-col md:grid-cols-2 gap-10'>
 							<FormField
 								control={form.control}
 								name='name'
@@ -120,7 +120,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 													disabled={isPending}
 													value={field.value ?? ''}
 													placeholder='Rick roll'
-													className='bg-transparent'
+													className='bg-black/50 ring-0 border border-violet-600/75'
 												/>
 											</FormControl>
 											<FormMessage />
@@ -135,7 +135,7 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 									return (
 										<FormItem className='flex w-full flex-col'>
 											<p className='text-violet-600 flex items-center gap-x-2'>
-												<span className='text-zinc-950'>Custom code</span>
+												<span className='text-card-foreground'>Custom code</span>
 												<Sparkles size='20' />
 											</p>
 											<Input
@@ -143,14 +143,14 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 												value={
 													field.value
 														? field.value
-																.replaceAll(/[^a-zA-Z-]+/g, '-')
+																.replaceAll(/[^a-zA-Z-0-9]+/g, '-')
 																.replaceAll(' ', '-')
 																.replaceAll(/(\-+)/g, '-')
 														: ''
 												}
 												disabled={isPending}
 												placeholder='your-awesome-code'
-												className='bg-transparent'
+												className='bg-black/50 ring-0 border border-violet-600/75'
 											/>
 											<FormMessage />
 										</FormItem>
@@ -159,15 +159,15 @@ export function AddUrlModal({ session }: ModalButtonProps) {
 							/>
 						</div>
 						{message && <Message {...message} />}
-						<div className='flex w-full h-full'>
+						<div className='flex w-full h-full text-card-foreground/75'>
 							<Button
-								className='w-full h-[50px] bg-violet-100 text-violet-500 hover:bg-violet-200 hover:text-violet-600'
+								className='w-full h-[34px] border border-violet-500/50 bg-pr-button/5 p-5'
 								disabled={isPending}
 								type='submit'
 							>
 								<p className='text-violet-600 flex items-center gap-x-2'>
 									<Scissors size='20' />
-									<span>Short it!</span>
+									<span className='text-foreground/75'>Short it!</span>
 								</p>
 							</Button>
 						</div>

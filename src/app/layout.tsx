@@ -40,7 +40,7 @@ export default function RootLayout({
 			<body
 				className={cn(
 					poppins.className,
-					' h-full bg-background dark:bg-background px-5',
+					' h-full w-full bg-background dark:bg-background',
 				)}
 			>
 				<script
