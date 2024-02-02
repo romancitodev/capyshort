@@ -30,8 +30,10 @@ export default auth(async req => {
 	}
 
 	// Authenticated users shouldn't reach auth routes
-	if (onAuthRoute && isLogged) {
-		return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+	if (onAuthRoute) {
+		return isLogged
+			? Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+			: null;
 	}
 
 	// Unauthenticated users should be redirected to login page for protected routes
