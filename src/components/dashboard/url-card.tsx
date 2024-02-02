@@ -19,7 +19,7 @@ type CardProps = {} & Link;
 
 export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 	const formattedName = name || new URL(url).hostname;
-	const { showModal, toggleState } = useModal();
+	const { showModal, toggleState, id: modalId } = useModal();
 	const { removeLink } = useLinks();
 
 	const element = document.querySelector('#add-url-modal');
@@ -31,7 +31,7 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 	};
 
 	const handleEdit = () => {
-		toggleState();
+		toggleState(id);
 	};
 
 	const relative = relativeTime(createdAt);
@@ -39,6 +39,7 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 	return (
 		<>
 			{showModal &&
+				modalId === id &&
 				createPortal(
 					<EditUrlModal id={id} name={name} url={url} code={code} />,
 					element,
