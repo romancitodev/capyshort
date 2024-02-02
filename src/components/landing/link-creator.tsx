@@ -12,8 +12,12 @@ import { useSession } from 'next-auth/react';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useCopyToClipboard } from 'usehooks-ts';
+
 export function LinkCreator() {
 	const session = useSession();
+
+	const [_, setClipboard] = useCopyToClipboard();
 
 	const [isPending, startTransition] = useTransition();
 	const [message, setMessage] = useState<{
@@ -41,6 +45,7 @@ export function LinkCreator() {
 					type: 'info',
 					content: 'Added to clipboard!',
 				});
+				setClipboard(`${process.env.NEXT_PUBLIC_DOMAIN}/${data.code}`);
 			}
 		});
 	};

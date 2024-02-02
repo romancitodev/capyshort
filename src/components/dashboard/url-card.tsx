@@ -53,7 +53,7 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 							{relative === 'ago' ? 'Now' : relative}
 						</h2>
 					</Card.Header>
-					<Card.Content>{`capyshort.dev/${code}`}</Card.Content>
+					<Card.Content>{`${process.env.NEXT_PUBLIC_DOMAIN}/${code}`}</Card.Content>
 				</div>
 				<div className='flex w-full h-full gap-x-5 justify-between items-center text-center sm:w-max sm:h-max sm:justify-normal'>
 					<Card.Views content={views} />
