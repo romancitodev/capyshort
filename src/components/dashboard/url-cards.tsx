@@ -14,7 +14,7 @@ export function UrlCards() {
 
 	if (loading)
 		return (
-			<div className='flex flex-col w-full h-full gap-6 overflow-y-scroll scrollbar-hide'>
+			<div className='flex flex-col w-full h-full gap-6 overflow-y-scroll scrollbar-hide text-violet-100'>
 				<LoadingUrls />
 			</div>
 		);
