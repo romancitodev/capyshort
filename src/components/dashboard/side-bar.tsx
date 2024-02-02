@@ -15,22 +15,24 @@ export function Sidebar() {
 
 	const style = (path: string) =>
 		cn(
-			'transition-all',
-			'flex justify-center items-center gap-x-2 w-full h-[50px] w-[50px]',
+			'transition-all p-0',
+			'flex justify-center items-center gap-x-2 h-[35px] w-[35px] rounded-xl text-white/50 border',
 			pathname === path &&
-				'bg-violet-500 text-violet-100 hover:bg-violet-600 rounded-xl',
+				'bg-pr-button/30 hover:bg-pr-button/50 hover:text-white/75 border-primary/75',
 			pathname !== path &&
-				'bg-violet-100 text-violet-500 hover:bg-violet-200 hover:text-violet-600 rounded-3xl',
+				'bg-pr-button/15 hover:bg-pr-button/25 hover:text-white/50 border-primary/30',
 		);
 
 	return (
 		<Panel>
-			<Panel.Button
-				className='bg-violet-100 text-violet-500 hover:bg-violet-200 h-[50px] w-[50px] rounded-3xl'
-				onClick={() => toggleState()}
-			>
-				<Plus />
-			</Panel.Button>
+			<div className='flex w-min h-min'>
+				<Panel.Button
+					className='p-0 rounded-xl w-[35px] h-[35px] bg-primary/30 border border-primary/50 text-violet-100/50'
+					onClick={() => toggleState()}
+				>
+					<Plus size='20' />
+				</Panel.Button>
+			</div>
 			<Panel.Content>
 				<Link href='/d' as='/d'>
 					<Panel.Button className={style('/d')}>
@@ -48,7 +50,7 @@ export function Sidebar() {
 			</Panel.Content>
 			<Panel.Footer>
 				<Panel.Button
-					className='bg-violet-100 text-violet-500 hover:bg-violet-200 w-[50px] h-[50px] rounded-3xl'
+					className='p-0 rounded-xl w-[35px] h-[35px] bg-primary/30 border border-primary/50 text-violet-100/50'
 					onClick={() => {
 						signOut();
 					}}

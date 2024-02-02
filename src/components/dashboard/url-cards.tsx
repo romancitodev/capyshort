@@ -14,13 +14,13 @@ export function UrlCards() {
 
 	if (loading)
 		return (
-			<div className='flex flex-col w-full h-full bg-zinc-100 gap-6 overflow-y-scroll scrollbar-hide'>
+			<div className='flex flex-col w-full h-full gap-6 overflow-y-scroll scrollbar-hide text-violet-100'>
 				<LoadingUrls />
 			</div>
 		);
 
 	return (
-		<li className='flex flex-col w-full h-min gap-6 overflow-y-scroll scrollbar-hide'>
+		<li className='flex flex-col-reverse lg:flex-col w-full h-max gap-6 overflow-y-scroll max-h-full scrollbar-hide'>
 			{filtered.length > 0 ? (
 				filtered.sort(sort[ordering]).map(c => (
 					<ul key={c.id}>

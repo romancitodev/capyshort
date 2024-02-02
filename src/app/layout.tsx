@@ -1,9 +1,17 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/components/root/theme';
 
 const poppins = Poppins({ weight: ['400', '500', '600'], subsets: ['latin'] });
+
+export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1,
+	maximumScale: 1,
+	userScalable: false,
+};
 
 export const metadata: Metadata = {
 	title: 'Capy short',
@@ -29,14 +37,21 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={cn(poppins.className, 'bg-zinc-100')}>
+			<body
+				className={cn(
+					poppins.className,
+					' h-full w-full bg-background dark:bg-background',
+				)}
+			>
 				<script
 					type='module'
 					defer
 					src='https://cdn.jsdelivr.net/npm/ldrs@1.0.1/dist/auto/ring.js'
 				/>
-				<div id='add-url-modal' />
-				{children}
+				<ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+					<div id='add-url-modal' />
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

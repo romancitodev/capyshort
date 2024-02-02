@@ -17,14 +17,12 @@ export default async function DashboardHome() {
 	return (
 		<SlotLayout>
 			<Filters slot-name='header' />
-			<div className='grid w-full h-auto gap-7'>
-				<div className='flex h-full w-full gap-10 justify-between'>
-					<StoreLinks links={links} />
-					<UrlCards />
-					<div className='flex flex-col w-2/6 h-full gap-6'>
-						<TotalCards />
-						<TotalClicks />
-					</div>
+			<div className='flex h-full w-full gap-10 justify-betweens'>
+				<StoreLinks links={links} />
+				<UrlCards />
+				<div className=' flex-col w-2/6 h-full gap-6 hidden lg:flex'>
+					<TotalCards />
+					<TotalClicks />
 				</div>
 			</div>
 		</SlotLayout>

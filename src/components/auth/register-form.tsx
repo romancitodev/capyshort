@@ -37,7 +37,6 @@ export function RegisterForm() {
 	}>();
 
 	const [viewPassword, setView] = useState(false);
-	const [viewCheck, setViewCheck] = useState(false);
 
 	const [isPending, startTransition] = useTransition();
 
@@ -55,7 +54,7 @@ export function RegisterForm() {
 		<Card
 			href='/login'
 			back={
-				<p>
+				<p className='text-xs md:text-base w-full text-wrap text-white/75'>
 					Have an account already? <span className='font-bold'>Login here</span>
 				</p>
 			}
@@ -110,21 +109,20 @@ export function RegisterForm() {
 							return (
 								<FormItem>
 									<FormControl>
-										<div className='grid grid-flow-col items-end gap-5 w-full transition-all justify-between'>
+										<div className='flex items-end gap-5 w-full transition-all'>
 											<Input
 												{...field}
 												hint='Password'
 												placeholder='********'
 												type={viewPassword ? 'text' : 'password'}
 												disabled={isPending}
-												className='h-[50px] transition-all w-[450px] rounded-xl'
 											/>
 											<CardButton
 												type='button'
-												className='bg-violet-50 text-violet-500 w-[75px] hover:bg-violet-100'
+												className='rounded-lg border border-violet-500/30 bg-violet-500/15 text-white/75  hover:bg-violet-500/25 focus:bg-violet-500/50'
 												onClick={() => setView(state => !state)}
 											>
-												{viewPassword ? <Eye /> : <EyeOff />}
+												{viewPassword ? <Eye size='16' /> : <EyeOff size='16' />}
 											</CardButton>
 										</div>
 									</FormControl>
@@ -140,21 +138,20 @@ export function RegisterForm() {
 							return (
 								<FormItem>
 									<FormControl>
-										<div className='grid grid-flow-col items-end gap-5 w-full transition-all justify-between'>
+										<div className='flex items-end gap-5 w-full transition-all justify-between'>
 											<Input
 												{...field}
 												hint='Repeat your password'
 												placeholder='********'
-												type={viewCheck ? 'text' : 'password'}
+												type={viewPassword ? 'text' : 'password'}
 												disabled={isPending}
-												className='h-[50px] transition-all w-[450px]  rounded-xl'
 											/>
 											<CardButton
 												type='button'
-												className='bg-violet-50 text-violet-500 w-[75px] hover:bg-violet-100'
-												onClick={() => setViewCheck(state => !state)}
+												className='rounded-lg border border-violet-500/30  bg-violet-500/15 text-white/75  hover:bg-violet-500/25 focus:bg-violet-500/50'
+												onClick={() => setView(state => !state)}
 											>
-												{viewPassword ? <Eye /> : <EyeOff />}
+												{viewPassword ? <Eye size='16' /> : <EyeOff size='16' />}
 											</CardButton>
 										</div>
 									</FormControl>
@@ -165,7 +162,7 @@ export function RegisterForm() {
 					/>
 					{message && <Message {...message} />}
 					<CardButton
-						className='text-violet-50 bg-violet-500 hover:bg-violet-600 flex gap-x-2'
+						className='text-violet-50 h-[34px] disabled:bg-[#654D9D] disabled:text-violet-200 flex gap-x-2 bg-violet-600/15 text-sm p-5 border border-violet-500/50'
 						type='submit'
 						disabled={isPending}
 					>

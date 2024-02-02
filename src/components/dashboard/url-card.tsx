@@ -19,7 +19,7 @@ type CardProps = {} & Link;
 
 export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 	const formattedName = name || new URL(url).hostname;
-	const { showModal, toggleState } = useModal();
+	const { showModal, toggleState, id: modalId } = useModal();
 	const { removeLink } = useLinks();
 
 	const element = document.querySelector('#add-url-modal');
@@ -31,7 +31,7 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 	};
 
 	const handleEdit = () => {
-		toggleState();
+		toggleState(id);
 	};
 
 	const relative = relativeTime(createdAt);
@@ -39,6 +39,7 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 	return (
 		<>
 			{showModal &&
+				modalId === id &&
 				createPortal(
 					<EditUrlModal id={id} name={name} url={url} code={code} />,
 					element,
@@ -48,18 +49,18 @@ export function UrlCard({ id, views, createdAt, name, code, url }: CardProps) {
 				<div className='w-full'>
 					<Card.Header>
 						{formattedName}
-						<h2 className='font-normal text-sm text-neutral-400'>
+						<h2 className='font-normal text-sm text-violet-100/60'>
 							{relative === 'ago' ? 'Now' : relative}
 						</h2>
 					</Card.Header>
 					<Card.Content>{`capyshort.dev/${code}`}</Card.Content>
 				</div>
-				<div className='flex w-min gap-x-5 items-center text-center'>
+				<div className='flex w-full h-full gap-x-5 justify-between items-center text-center sm:w-max sm:h-max sm:justify-normal'>
 					<Card.Views content={views} />
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Card.Button>
-								<Settings size='20' />
+							<Card.Button className='p-0 bg-primary/30 ring-0 border border-primary/50 w-[35px] h-[35px]'>
+								<Settings size='16' />
 							</Card.Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className='w-min'>

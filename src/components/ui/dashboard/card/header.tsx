@@ -7,7 +7,7 @@ export function Header({
 		const [header, ...extra] = children;
 		return (
 			<div className='flex flex-row items-center text-start gap-x-3 w-full'>
-				<h2 className='font-semibold text-sm text-gray-700'>{header}</h2>
+				<h2 className='font-medium text-sm text-violet-100/80'>{header}</h2>
 				{extra.map((item, index) => {
 					return (
 						// biome-ignore lint/suspicious/noArrayIndexKey: In this case, the map is constant, so we now what are we talking about
@@ -34,7 +34,7 @@ export function Dot() {
 			xmlns='http://www.w3.org/2000/svg'
 		>
 			<title>Simple dot</title>
-			<circle cx='3' cy='3.5' r='3' fill='#1E1E1E' />
+			<circle cx='3' cy='3.5' r='3' fill='#F3EBFF' />
 		</svg>
 	);
 }

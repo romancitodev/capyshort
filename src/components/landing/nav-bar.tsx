@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Capybara } from '../icons/capybara';
+import { Capybara } from '../icons/new-capy-logo';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
+import { Sun } from 'lucide-react';
 
 export function Navbar() {
 	const session = useSession();
@@ -12,37 +13,32 @@ export function Navbar() {
 	const user = session.data;
 
 	return (
-		<header className='sticky bg-zinc-100/50 flex flex-col transition-colors w-full items-center justify-center backdrop-blur-md'>
-			<div className='flex w-full px-[448px] pb-2'>
-				<div className='p-4 px-6 w-full flex justify-between items-center rounded-xl'>
-					<Capybara width='50' height='60' />
-					<div className='flex gap-6'>
-						{user ? (
-							<>
-								<Button className='bg-transparent text-violet-500/60 hover:text-violet-600 hover:bg-transparent h-12 transition-all duration-300 w-20'>
-									<Link href='/d'>Dashboard</Link>
-								</Button>
-								<Button
-									className='bg-violet-500/95 text-violet-100 hover:bg-violet-600 h-12 transition-all duration-300 w-20'
-									onClick={() => signOut()}
-								>
-									Log out
-								</Button>
-							</>
-						) : (
-							<>
-								<Button className='bg-transparent text-violet-500/60 hover:text-violet-600 hover:bg-transparent h-12 transition-all duration-300 w-20'>
-									<Link href='/register'>Register</Link>
-								</Button>
-								<Button className='bg-violet-500/95 text-violet-100 hover:bg-violet-600 h-12 transition-all duration-300 w-20'>
-									<Link href='/login'>Login</Link>
-								</Button>
-							</>
-						)}
-					</div>
+		<header className='sticky bg-primary/15 rounded-xl py-2 px-3 h-14 flex transition-colors items-center justify-between backdrop-blur-md xl:w-[926px] lg:w-[820px] md:w-[658px] sm:w-[450px] w-full top-5 z-10'>
+			<Capybara />
+			<div className='inline-flex items-center gap-5 h-[36px]'>
+				<div className='inline-flex gap-2'>
+					{user ? (
+						<>
+							<Button variant='ghost'>
+								<Link href='/d'>Dashboard</Link>
+							</Button>
+							<Button onClick={() => signOut()}>Log out</Button>
+						</>
+					) : (
+						<>
+							<Button variant='ghost'>
+								<Link href='/register'>Register</Link>
+							</Button>
+							<Button className=' bg-primary/75 hover:bg-primary'>
+								<Link href='/login'>login</Link>
+							</Button>
+						</>
+					)}
 				</div>
+				<Button className='h-[36px] w-[36px] p-2 text-white bg-pr-button/30 rounded-xl border-pr-button/50 border hover:bg-pr-button/40'>
+					<Sun />
+				</Button>
 			</div>
-			<span className='min-h-px bg-zinc-400/50 w-full' />
 		</header>
 	);
 }

@@ -18,12 +18,12 @@ export async function SlotLayout({ children }: Props) {
 	const { slot } = useSlot(children);
 
 	return (
-		<div className='flex flex-col w-full h-full bg-zinc-100 gap-10'>
-			<div className='aboslute grid gap-y-10 h-max w-full pt-5 px-5 sticky top-0 bg-zinc-100/50 backdrop-blur'>
-				<div className='w-full h-[90px] flex rounded-3xl sticky top-5'>
-					<div className='flex w-full h-full gap-x-10'>
+		<div className='flex flex-col-reverse md:flex-col w-full h-full gap-10'>
+			<div className='flex flex-col-reverse md:grid gap-y-10 h-max sticky backdrop-blur'>
+				<div className='w-full flex flex-col-reverse md:flex rounded-3xl sticky'>
+					<div className='flex flex-col-reverse gap-5 xl:flex-row min-w-8 w-full h-full'>
 						<slot.header>
-							<header className='flex w-full items-center gap-5 justify-center rounded-3xl bg-white shadow'>
+							<header className='flex w-full items-center gap-5 justify-center rounded-3xl'>
 								<Capybara height='50' width='42.1' />
 								<span className='font-bold text-2xl text-violet-600'>Capyshort</span>
 							</header>
@@ -33,13 +33,11 @@ export async function SlotLayout({ children }: Props) {
 						</SidebarWrapper>
 					</div>
 				</div>
-				<div className='flex w-full h-0.5 items-center justify-center'>
-					<span className='bg-stone-900 w-full h-full' />
-				</div>
 			</div>
-			<div className='flex h-max w-full bg-zinc-100 px-5 pb-5'>
-				<slot.default />
+			<div className='flex w-full min-h-0.5 items-center justify-center'>
+				<span className='bg-primary/30 w-full h-full' />
 			</div>
+			<slot.default />
 		</div>
 	);
 }

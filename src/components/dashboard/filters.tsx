@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { FilterMenu } from '@/components/ui/dashboard/filter-menu';
 import { useLinks } from '@/store/links';
-import { Capybara } from '../icons/capybara';
 
 export function Filters({ ...props }: React.HtmlHTMLAttributes<HTMLElement>) {
 	const { ordering, toggleOrdering, setFilter } = useLinks();
@@ -15,27 +14,24 @@ export function Filters({ ...props }: React.HtmlHTMLAttributes<HTMLElement>) {
 			<FilterMenu.Content>
 				<FilterMenu.Field>
 					<Input
-						className='bg-transparent h-[50px] w-full rounded-xl'
+						className=' bg-[hsla(259_52%_10%)] bg-opacity-30 h-full w-full rounded-lg border border-primary/30 ring-0 text-sm'
 						placeholder='My cool alias'
 						onChange={e => {
 							setFilter(e.target.value);
 						}}
 					/>
 				</FilterMenu.Field>
-				<FilterMenu.Field className='w-min'>
+				<Separator />
+				<FilterMenu.Field className='w-min gap-5'>
 					<Button
-						className='flex h-[50px] w-[50px] transition-colors text-stone-900 bg-stone-900/5 rounded-3xl hover:bg-stone-900/20 active:bg-stone-900/30'
+						className='flex h-[35px] w-[35px] p-0 transition-colors bg-primary/50 border border-primary/75 text-white/75 rounded-xl'
 						onClick={toggleOrdering}
 					>
-						{ordering === 'asc' ? <ArrowUpAz size='20' /> : <ArrowDownAz size='20' />}
+						{ordering === 'asc' ? <ArrowUpAz size='16' /> : <ArrowDownAz size='16' />}
 					</Button>
-					<Button className='flex text-violet-400 bg-violet-100 hover:bg-violet-200 hover:text-violet-500 text-lg font-medium h-[50px] gap-5 rounded-3xl'>
+					<Button className='flex h-[35px] w-[35px] p-0 transition-colors bg-primary/50 border border-primary/75 text-white/75 rounded-xl'>
 						<Filter size='20' />
 					</Button>
-				</FilterMenu.Field>
-				<Separator />
-				<FilterMenu.Field className='w-min'>
-					<Capybara height='50' width='42.1' />
 				</FilterMenu.Field>
 			</FilterMenu.Content>
 		</FilterMenu>
@@ -43,5 +39,5 @@ export function Filters({ ...props }: React.HtmlHTMLAttributes<HTMLElement>) {
 }
 
 function Separator() {
-	return <span className=' min-w-0.5 h-7  bg-stone-900  rounded-full' />;
+	return <span className=' min-w-0.5 h-6 bg-primary/50 rounded-full' />;
 }

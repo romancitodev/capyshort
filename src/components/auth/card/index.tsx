@@ -11,7 +11,7 @@ import { BackButton } from '@/components/auth/card/back-button';
 import { CardButton } from '@/components/auth/card/button';
 import { Header } from '@/components/auth/card/header';
 import { Separator } from '@/components/auth/card/separator';
-import { Capybara } from '@/components/icons/capybara';
+import { Capybara } from '@/components/icons/new-capy-logo';
 import { Github } from '@/components/icons/company/github';
 import { Google } from '@/components/icons/company/google';
 import { signIn } from 'next-auth/react';
@@ -30,29 +30,29 @@ export default function AuthCard({ children, back, href }: CardProps) {
 	};
 
 	return (
-		<Card className='w-[600px] shadow-md bg-violet-50'>
+		<Card className='w-full lg:w-[600px] shadow-md bg-card-background/30 backdrop-blur border border-violet-200/15'>
 			<CardHeader>
 				<Header>
 					<Capybara />
 				</Header>
 			</CardHeader>
-			<CardContent className='h-full grid grid-flow-row gap-y-3'>
+			<CardContent className='h-full w-full grid grid-flow-row gap-y-3'>
 				{children}
 			</CardContent>
-			<CardFooter className='grid w-full gap-5'>
+			<CardFooter className='flex flex-col w-full gap-5'>
 				<Separator />
-				<div className='grid w-full grid-flow-col gap-x-5'>
+				<div className='grid w-full grid-flow-row lg:grid-flow-col gap-5'>
 					<CardButton
-						className='bg-violet-50 ring-1 ring-violet-500 hover:ring-violet-600 hover:bg-violet-100'
+						className='w-full h-[34px] border border-violet-500/50 bg-pr-button/5 p-5'
 						onClick={() => onClick('google')}
 					>
-						<Google />
+						<Google className='fill-current text-white' />
 					</CardButton>
 					<CardButton
-						className='bg-violet-50 ring-1 ring-violet-500 hover:ring-violet-600 hover:bg-violet-100'
+						className='w-full h-[34px] border border-violet-500/50 bg-pr-button/5 p-5'
 						onClick={() => onClick('github')}
 					>
-						<Github />
+						<Github className='fill-current text-white' />
 					</CardButton>
 				</div>
 				<Separator />

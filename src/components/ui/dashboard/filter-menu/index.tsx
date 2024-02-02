@@ -10,7 +10,7 @@ type MenuProps = {
 
 export function FilterMenu({ children }: MenuProps) {
 	return (
-		<div className='flex h-min w-full bg-white rounded-3xl p-5 shadow justify-between'>
+		<div className='flex h-[54px] w-full bg-primary/20 rounded-xl justify-between px-2 py-3'>
 			{children}
 		</div>
 	);
