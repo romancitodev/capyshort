@@ -1,12 +1,17 @@
-<center>
+<p align="center">
     <img src="./public/logo.png">
-</center>
+</p>
 
-<center>
-<img src=https://img.shields.io/github/deployments/romancitodev/capyshort/production?style=for-the-badge&logo=vercel&logoColor=black&labelColor=white>
-<img src=https://img.shields.io/github/stars/romancitodev/capyshort?style=for-the-badge&logo=github&label=Stars&labelColor=black
->
-</center>
+<div align="center">
+
+[![website][vercel-badge]][website]
+[![Give me a star][stars-badge]][repo]
+
+[website]: https://capy-short.vercel.app/
+[repo]: https://github.com/romancitodev/capyshort
+[vercel-badge]: https://img.shields.io/github/deployments/romancitodev/capyshort/production?style=for-the-badge&logo=vercel&logoColor=black&labelColor=white
+[stars-badge]: https://img.shields.io/github/stars/romancitodev/capyshort?style=for-the-badge&logo=github&label=Stars&labelColor=black
+</div>
 
 <div style="text-align: center;">
     <h1>Capy short</h1>
